@@ -8,5 +8,75 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "rating")
 public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "moddysRating", length = 125)
+    private String moddysRating;
+    @Column(name = "sandPRating", length = 125)
+    private String sandPRating;
+    @Column(name = "fitchRating", length = 125)
+    private String fitchRating;
+
+    @Column(name = "orderNumber") //Todo: size?
+    private Integer orderNumber;
+
+    public Rating() {
+    }
+
+    public Rating(Integer id, String moddysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+        this.id = id;
+        this.moddysRating = moddysRating;
+        this.sandPRating = sandPRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
+
+    public Rating(String moddysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+        this.moddysRating = moddysRating;
+        this.sandPRating = sandPRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getModdysRating() {
+        return moddysRating;
+    }
+
+    public void setModdysRating(String moddysRating) {
+        this.moddysRating = moddysRating;
+    }
+
+    public String getSandPRating() {
+        return sandPRating;
+    }
+
+    public void setSandPRating(String sandPRating) {
+        this.sandPRating = sandPRating;
+    }
+
+    public String getFitchRating() {
+        return fitchRating;
+    }
+
+    public void setFitchRating(String fitchRating) {
+        this.fitchRating = fitchRating;
+    }
+
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer oderNumber) {
+        this.orderNumber = orderNumber;
+    }
 }

@@ -7,16 +7,30 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
+    @Column(length = 125)
     private String username;
     @NotBlank(message = "Password is mandatory")
+    @Column(name = "password", length = 125) //Todo: exigence, pattern
     private String password;
     @NotBlank(message = "FullName is mandatory")
+    @Column(length = 125)
     private String fullname;
     @NotBlank(message = "Role is mandatory")
+    @Column(length = 125)
     private String role;
+    public User() {
+    }
+
+    public User(Integer id, String username, String password, String fullname, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;
