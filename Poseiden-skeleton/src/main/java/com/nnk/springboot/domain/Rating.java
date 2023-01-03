@@ -12,14 +12,14 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "moddysRating", length = 125)
+    @Column(name = "moddys_rating", length = 125)
     private String moddysRating;
-    @Column(name = "sandPRating", length = 125)
+    @Column(name = "sand_p_rating", length = 125)
     private String sandPRating;
-    @Column(name = "fitchRating", length = 125)
+    @Column(name = "fitch_rating", length = 125)
     private String fitchRating;
 
-    @Column(name = "orderNumber") //Todo: size?
+    @Column(name = "order_number") //Todo: size?
     private Integer orderNumber;
 
     public Rating() {

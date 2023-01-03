@@ -16,7 +16,7 @@ public class SecurityFilterChain {
         LOGGER.debug("This defaultSecurityFilterChain(from SecurityConfig) starts here.");
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/static/css/**").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

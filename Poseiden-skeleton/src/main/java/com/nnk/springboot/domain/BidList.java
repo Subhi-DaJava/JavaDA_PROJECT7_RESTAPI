@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Required;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bidListId")
+    @Column(name = "bid_list_Id")
     private Integer BidListId;
 
     @NotBlank(message = "Account is mandatory")
@@ -34,7 +33,7 @@ public class BidList {
     @Column(length = 125)
     private String benchmark;
 
-    @Column(name = "bidListDate")
+    @Column(name = "bid_listDate")
     private Timestamp bidListDate;
 
     @Column(length = 125)
@@ -49,19 +48,19 @@ public class BidList {
     private String book;
 
 
-    @Column(length = 125, name = "creationName")
+    @Column(length = 125, name = "creation_name")
     private String creationName;
-    @Column(name = "creationDate")
+    @Column(name = "creation_date")
     private Timestamp creationDate;
-    @Column(length = 125, name = "revisionName")
+    @Column(length = 125, name = "revision_name")
     private String revisionName;
-    @Column(name = "revisionDate")
+    @Column(name = "revision_date")
     private Timestamp revisionDate;
-    @Column(length = 125, name = "dealName")
+    @Column(length = 125, name = "deal_name")
     private String dealName;
-    @Column(length = 125, name = "dealType")
+    @Column(length = 125, name = "deal_type")
     private String dealType;
-    @Column(length = 125,name = "sourceListId")
+    @Column(length = 125,name = "source_listId")
     private String sourceListId;
 
     @Column(length = 125)
@@ -106,6 +105,12 @@ public class BidList {
         this.account = account;
         this.type = type;
         this.bidQuantity = bidQuantity;
+    }
+    public BidList(Integer bidListId, String account, String type, Double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+        this.BidListId = bidListId;
     }
 
     public Integer getBidListId() {

@@ -1,3 +1,4 @@
+use poseidon_p7;
 
 CREATE TABLE BidList (
   BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
