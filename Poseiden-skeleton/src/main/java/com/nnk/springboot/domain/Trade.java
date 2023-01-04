@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -13,13 +14,14 @@ public class Trade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trade_id")
     public Integer tradeId;
-    @NotNull(message = "Accont is mandatory")
-    @Column(length = 30)
+    @NotBlank(message = "Account is mandatory")
+    @Column(length = 20)
     private String account;
-    @NotNull(message = "Type is mandatory")
-    @Column(length = 30)
+    @NotBlank(message = "Type is mandatory")
+    @Column(length = 20)
     public String type;
-
+    @Min(1)
+    @NotNull(message = "Should not be null")
     @Column(name = "buy_quantity")
     private Double buyQuantity;
     @Column(name = "sel_quantity")
@@ -63,37 +65,19 @@ public class Trade {
     public Trade() {
     }
 
-    public Trade(Integer tradeId,
-                 String account, String type,
-                 Double buyQuantity, Double selQuantity, Double buyPrice,
-                 Double selPrice, Timestamp tradeDate, String security,
-                 String status, String trader, String benchmark, String book,
-                 String creationName, Timestamp creationDate, String revisionName, Timestamp revisionDate,
-                 String dealName, String dealType, String sourceListId, String side) {
+    public Trade(String account, String type, Double buyQuantity) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+    }
+    public Trade(Integer tradeId, String account, String type, Double buyQuantity) {
         this.tradeId = tradeId;
         this.account = account;
         this.type = type;
         this.buyQuantity = buyQuantity;
-        this.selQuantity = selQuantity;
-        this.buyPrice = buyPrice;
-        this.selPrice = selPrice;
-        this.tradeDate = tradeDate;
-        this.security = security;
-        this.status = status;
-        this.trader = trader;
-        this.benchmark = benchmark;
-        this.book = book;
-        this.creationName = creationName;
-        this.creationDate = creationDate;
-        this.revisionName = revisionName;
-        this.revisionDate = revisionDate;
-        this.dealName = dealName;
-        this.dealType = dealType;
-        this.sourceListId = sourceListId;
-        this.side = side;
     }
 
-    public Trade(String account, String type) {
+    public Trade(String tradeAccount, String type) {
         this.account = account;
         this.type = type;
     }

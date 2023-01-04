@@ -20,9 +20,11 @@ public class SecurityFilterChain {
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
+                .defaultSuccessUrl("/bidList/list").permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutSuccessUrl("/").permitAll();
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

@@ -14,23 +14,23 @@ public class RuleName {
     private String name;
 
     @NotBlank(message = "Description is mandatory")
-    @Column(length = 125)
+    @Column(length = 30)
     private String description;
 
     @NotBlank(message = "Json is mandatory")
-    @Column(length = 125)
+    @Column(length = 20)
     private String json;
 
     @NotBlank(message = "Template is mandatory")
-    @Column(length = 512)
+    @Column(length = 20)
     private String template;
 
     @NotBlank(message = "SqlStr is mandatory")
-    @Column(length = 125)
+    @Column(length = 20)
     private String sqlStr;
 
     @NotBlank(message = "SqlPart is mandatory")
-    @Column(length = 125)
+    @Column(length = 20)
     private String sqlPart;
 
     public RuleName() {

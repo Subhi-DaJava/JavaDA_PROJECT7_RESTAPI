@@ -14,11 +14,15 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("login")
+    /*@GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
+    }*/
+    @GetMapping("/login")
+    public String login() {
+        return "bidList/list";
     }
 
     @GetMapping("secure/article-details")

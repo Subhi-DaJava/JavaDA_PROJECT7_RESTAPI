@@ -14,11 +14,27 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/trade/validate}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
-			 -->
-
+		<form th:action="@{/trade/validate}" th:object="${tradeDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade-->
+			<div class="mb-4">
+				<label class="mb-2" for="account">Account</label>
+				<input id="account" class="form-control" type="text" name="account" th:field="*{account}" placeholder="Account"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
+			</div>
+			<div class="mb-4">
+				<label class="mb-2" for="type">Type</label>
+				<input id="type" class="form-control" type="text" name="type" th:field="*{type}" placeholder="Type"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+			</div>
+			<div>
+				<label class="mb-2" for="buyQuantity">Buy Quantity</label>
+				<input id="buyQuantity" class="form-control" type="number" step="0.1" name="buyQuantity" th:field="*{buyQuantity}" placeholder="Buy Quantity"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
+			</div>
+			<div class="mt-3">
+				<a class="btn btn-danger" th:href="@{/trade/list}">Cancel</a>
+				<button type="submit" class="btn btn-primary">Add Trade</button>
+			</div>
 		</form>
 	</div>
 

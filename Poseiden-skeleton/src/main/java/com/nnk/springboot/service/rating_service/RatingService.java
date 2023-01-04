@@ -1,6 +1,7 @@
 package com.nnk.springboot.service.rating_service;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.dto.RatingDTO;
 
 import java.util.List;
 /**
@@ -9,9 +10,9 @@ import java.util.List;
  * @author Subhi
  */
 public interface RatingService {
-    List<Rating> getRatings();
-    Rating getRatingById(Integer id);
-    Rating saveNewRating(Rating rating);
-    void updateRating(Rating rating);
+    List<RatingDTO> getRatings();
+    RatingDTO getRatingById(Integer id);
+    RatingDTO saveNewRating(RatingDTO ratingDTO);
+    void updateRating(RatingDTO ratingDTO);
     void deleteRatingById(Integer id);
 }

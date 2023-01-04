@@ -1,8 +1,10 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,29 +14,30 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "moddys_rating", length = 125)
-    private String moddysRating;
-    @Column(name = "sand_p_rating", length = 125)
+    @Column(name = "moodys_rating", length = 20)
+    private String moodysRating;
+    @Column(name = "sand_p_rating", length = 20)
     private String sandPRating;
-    @Column(name = "fitch_rating", length = 125)
+    @Column(name = "fitch_rating", length = 20)
     private String fitchRating;
-
-    @Column(name = "order_number") //Todo: size?
+    @Min(1)
+    @Column(name = "order_number", length = 4)
+    @NotNull
     private Integer orderNumber;
 
     public Rating() {
     }
 
-    public Rating(Integer id, String moddysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+    public Rating(Integer id, String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.id = id;
-        this.moddysRating = moddysRating;
+        this.moodysRating = moodysRating;
         this.sandPRating = sandPRating;
         this.fitchRating = fitchRating;
         this.orderNumber = orderNumber;
     }
 
-    public Rating(String moddysRating, String sandPRating, String fitchRating, Integer orderNumber) {
-        this.moddysRating = moddysRating;
+    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+        this.moodysRating = moodysRating;
         this.sandPRating = sandPRating;
         this.fitchRating = fitchRating;
         this.orderNumber = orderNumber;
@@ -48,13 +51,6 @@ public class Rating {
         this.id = id;
     }
 
-    public String getModdysRating() {
-        return moddysRating;
-    }
-
-    public void setModdysRating(String moddysRating) {
-        this.moddysRating = moddysRating;
-    }
 
     public String getSandPRating() {
         return sandPRating;
@@ -76,7 +72,16 @@ public class Rating {
         return orderNumber;
     }
 
-    public void setOrderNumber(Integer oderNumber) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
+
+    public String getMoodysRating() {
+        return moodysRating;
+    }
+
+    public void setMoodysRating(String moodysRating) {
+        this.moodysRating = moodysRating;
+    }
+
 }

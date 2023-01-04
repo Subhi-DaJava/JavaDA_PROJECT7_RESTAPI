@@ -14,10 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * BidListServiceImpl: CRUD
+ * @author Subhi
+ */
 @Service
 @Transactional
 public class BidListServiceImpl implements BidListService {
-    private static  final Logger logger = LoggerFactory.getLogger(BidListServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BidListServiceImpl.class);
     private BidListRepository bidListRepository;
     private MapperService mapperService;
 
@@ -36,27 +40,27 @@ public class BidListServiceImpl implements BidListService {
         List<BidList> bidLists = bidListRepository.findAll();
 
         if(bidLists.isEmpty()){
-            logger.info("BidList is empty in DB!(from getBidList, BidListServiceImpl).");
+            logger.info("BidList is empty in DDB!(from getBidList, BidListServiceImpl).");
             return new ArrayList<>();
         }
-        logger.info("BidList successfully loaded from DB(from getBidList, BidListServiceImpl).");
-        bidListDTOs = bidLists.stream().map( bidList ->
+        logger.info("BidList successfully loaded from DDB(from getBidList, BidListServiceImpl).");
+        bidListDTOs = bidLists.stream().map(bidList ->
                 mapperService.fromBidList(bidList)
         ).collect(Collectors.toList());
         return bidListDTOs;
     }
 
     /**
-     * Save a new bidList via BidListDTO
+     * Save a new BidList via BidListDTO
      * @param bidListDTO BidListDTO
      * @return BidListDTO
      */
     @Override
     public BidListDTO saveNewBidList(BidListDTO bidListDTO) {
-        logger.debug("This addNewBidList(from BidListServiceImpl) starts here.");
+        logger.debug("This saveNewBidList(from BidListServiceImpl) starts here.");
         BidList bidList = mapperService.fromBidListDTO(bidListDTO);
         BidList savedBidList = bidListRepository.save(bidList);
-        logger.info("BidList successfully saved into DB(from saveNewBidList, BidListServiceImpl).");
+        logger.info("New BidList successfully saved into DDB(from saveNewBidList, BidListServiceImpl).");
         BidListDTO returnBidListDTO = mapperService.fromBidList(savedBidList);
         return returnBidListDTO;
     }
@@ -70,7 +74,7 @@ public class BidListServiceImpl implements BidListService {
         logger.debug("This getBidListById(from BidListServiceImpl) starts here.");
         BidList getBidList = getBidListByBidListId(id);
 
-        logger.info("BidList successfully found by its id: {} (from getBidListById,BidListServiceImpl).", id);
+        logger.info("BidList successfully found by its id: {} (from getBidListById, BidListServiceImpl).", id);
         return mapperService.fromBidList(getBidList);
     }
 
@@ -92,20 +96,20 @@ public class BidListServiceImpl implements BidListService {
         BidList updateBidList = mapperService.fromBidListDTO(bidListDTO);
         updateBidList.setBidListId(bidListDTO.getBidId());
 
-        logger.info("BidList which id : {} successfully updated(from updateBidList, BidListServiceImpl).", bidListDTO.getBidId());
+        logger.info("BidList which id: {} successfully updated(from updateBidList, BidListServiceImpl).", bidListDTO.getBidId());
         bidListRepository.save(updateBidList);
     }
     /**
-     * Delete a BidList by BidListId
+     * Delete a BidList existing in DDB by BidListId
      * @param id id
      */
 
     @Override
     public void deleteBidListById(Integer id) {
-        logger.debug("This DeleteBidListById(from BidListServiceImpl starts here.) ");
+        logger.debug("This deleteBidListById(from BidListServiceImpl starts here.) ");
         BidList bidListById = getBidListByBidListId(id);
         if(bidListById != null) {
-            logger.info("BidList which id :{} successfully deleted from DDB(from BidListServiceImpl)", id);
+            logger.info("BidList which id: {} successfully deleted from DDB(from BidListServiceImpl)", id);
             bidListRepository.deleteById(id);
         }
     }
@@ -117,8 +121,8 @@ public class BidListServiceImpl implements BidListService {
      */
     private BidList getBidListByBidListId(Integer id) {
         BidList bidList = bidListRepository.findById(id).orElseThrow(() -> {
-            logger.error("This bidId:{} not found!", id);
-            throw new ResourcesNotFoundException("This bidList doesn't exist with this id : " + id + " , from getBidListByBidListId, BidListServiceImpl.");
+            logger.error("This bidId: {} not found!", id);
+            throw new ResourcesNotFoundException("This BidList doesn't exist with this id : " + id + " , from getBidListByBidListId, BidListServiceImpl.");
         });
         return bidList;
     }

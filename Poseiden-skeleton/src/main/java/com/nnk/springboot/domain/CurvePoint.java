@@ -17,6 +17,7 @@ public class CurvePoint {
     private Integer id;
     @Min(1)
     @Column(name = "curveid")
+    @NotNull(message = "must not be null")
     private Integer curveId;
 
     @Column(name = "asofdate")
@@ -42,6 +43,12 @@ public class CurvePoint {
     }
 
     public CurvePoint(Integer curveId, Double term, Double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
+    public CurvePoint(Integer id, Integer curveId, Double term, Double value) {
+        this.id = id;
         this.curveId = curveId;
         this.term = term;
         this.value = value;

@@ -1,10 +1,15 @@
 package com.nnk.springboot.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserGetDTO {
     private Integer id;
+
     private String fullname;
     private String username;
     private String role;
+    private String userPassword;
 
     public Integer getId() {
         return id;
@@ -36,5 +41,13 @@ public class UserGetDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 }

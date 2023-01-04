@@ -8,10 +8,9 @@ import java.util.List;
  * in the BidList business domain.
  * @author Subhi
  */
-
 public interface BidListService {
     List<BidListDTO> getBidList();
-    BidListDTO saveNewBidList(BidListDTO bidList);
+    BidListDTO saveNewBidList(BidListDTO bidListDTO);
 
     BidListDTO getBidListById(Integer id);
 

@@ -8,10 +8,10 @@ insert into `curvepoint` (curveid, term, value) values
                                                 (6, 185.62, 147),
                                                 (9, 169.55, 312);
 
-insert into `rating` (moddys_rating, sand_p_rating, fitch_rating, order_number) values
-                                                                  ('moddys_rating_1', 'sandPRating1', 'fitch_rating_1', 325),
-                                                                  ('moddys_rating_2','sandPRating2',  'fitch_rating_2', 341),
-                                                                  ('moddys_rating_3', 'sandPRating3', 'fitch_rating_3', 850);
+insert into `rating` (moodys_rating, sand_p_rating, fitch_rating, order_number) values
+                                                                  ('moodys_rating_1', 'sandPRating1', 'fitch_rating_1', 325),
+                                                                  ('moodys_rating_2','sandPRating2',  'fitch_rating_2', 341),
+                                                                  ('moodys_rating_3', 'sandPRating3', 'fitch_rating_3', 850);
 
 insert into `rulename`(name, description, json, template, sql_str, sql_part ) values
                                               ('rule number 1', 'rule must be rule', 'json_1', 'template_1', 'sql_1', 'sql_part1'),

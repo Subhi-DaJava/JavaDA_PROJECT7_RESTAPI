@@ -14,10 +14,35 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
-			 -->
+		<form th:action="@{/rating/update/{id}(id=${ratingDTO.ratingID})}" th:object="${ratingDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating-->
+			<div>
+				<input class="form-control" type="hidden" th:field="*{ratingID}"/>
+			</div>
+			<div class="mb-3">
+				<label class="mb-2" for="moodysrating">Moody'S Rating</label>
+				<input id="moodysrating" class="form-control" type="text" name="moodysrating" th:field="*{moodysRating}"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></span>
+			</div>
+			<div class="mb-3">
+				<label class="mb-2" for="sandPRating">Sand P Rating</label>
+				<input id="sandPRating" class="form-control" type="text" name="sandPRating" th:field="*{sandPRating}"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></span>
+			</div>
+			<div class="mb-3">
+				<label class="mb-2" for="fitchRating">Fitch Rating</label>
+				<input id="fitchRating" class="form-control" type="text" name="fitchRating" th:field="*{fitchRating}"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></span>
+			</div>
+			<div>
+				<label class="mb-2" for="orderNumber">Order Number</label>
+				<input id="orderNumber" class="form-control" type="number" name="orderNumber" th:field="*{orderNumber}"/>
+				<span class="text-danger" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></span>
+			</div>
+			<div class="mt-3">
+				<a class="btn btn-danger" th:href="@{/rating/list}">Cancel</a>
+				<button type="submit" class="btn btn-primary">Update Rating</button>
+			</div>
 		</form>
 	</div>
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 /**
- * BidListController send requests to backend, getAllBidList, saveNewBidList, getBidListById, updateBidListExisting, deleteBidList
+ * BidListController send requests to backend, getAllBidList, saveNewBidList, getBidListById, updateBidListExisting, deleteBidListExisting
  * @author Subhi
  */
 
@@ -39,22 +39,20 @@ public class BidListController {
         return "bidList/list";
     }
     /**
-     * Show bidList addForm with the object BidListDTO
+     * Show BidList addForm with the object BidListDTO
      * @return BidListAdd Page
      */
-
     @GetMapping("/bidList/add")
     public String addBidForm(BidListDTO bidListDTO) { // object BidListDTO interact with add.html
         logger.debug("This addBidForm(from BidListController) starts here.");
         return "bidList/add";
     }
     /**
-     * Sava a bid
+     * Sava a BidList
      * @param bidList
      * @param result BindingResult
      * @return BidList Page
      */
-
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidListDTO bidList, BindingResult result, Model model) {
         logger.debug("This validatePostMapping(from BidListController) starts here.");
@@ -64,7 +62,7 @@ public class BidListController {
             logger.info("New BidList successfully saved in DDB(from validatePostMapping, BidListController)");
             return "redirect:/bidList/list";
         }
-        logger.error("result error ={}, (from validePostMapping, BidListController)", result.getFieldErrors());
+        logger.error("result error= {}, (from validePostMapping, BidListController)", result.getFieldErrors());
         return "bidList/add";
     }
     /**
@@ -73,7 +71,6 @@ public class BidListController {
      * @param model Model
      * @return BidListUpdate Page with BidListDTO
      */
-
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.debug("This showUpdateForm(from BidListController) starts here.");
@@ -83,7 +80,7 @@ public class BidListController {
         return "bidList/update";
     }
     /**
-     * Update a bidList by id, checking the fields before call to service
+     * Update a BidList by id, checking the fields before call to service
      * @param id Integer
      * @param bidListDTO BidListDTO
      * @param result BindingResult
@@ -92,27 +89,27 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidListDTO bidListDTO,
                              BindingResult result) {
-        logger.debug("This updateBid Post method(from BidListController) starts here.");
+        logger.debug("This updateBid method(from BidListController) starts here.");
         if(result.hasErrors()){
             logger.error("The field error= {} should be valid!", result.getFieldErrors());
             return "bidList/update";
         }
         bidListDTO.setBidId(id);
         bidListService.updateBidList(bidListDTO);
-        logger.info("BidList with id : {} is successfully updated(from, updatePostMapping, BidListController)", id);
+        logger.info("BidList with id: {} is successfully updated(from, updatePostMapping, BidListController)", id);
         return "redirect:/bidList/list";
     }
 
     /**
-     * Delete bidList by given BidListId
+     * Delete BidList by given BidListId
      * @param id Integer
      * @return BidList Page
      */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        logger.debug("This DeleteBid(from BidListController) starts here.");
+        logger.debug("This deleteBid(from BidListController) starts here.");
         bidListService.deleteBidListById(id);
-        logger.info("BidList successfully deleted by given Id : {}, from BidListController.", id);
+        logger.info("BidList successfully deleted by given Id: {}, from BidListController.", id);
         return "redirect:/bidList/list";
     }
 }

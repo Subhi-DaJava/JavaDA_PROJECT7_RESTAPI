@@ -1,6 +1,7 @@
 package com.nnk.springboot.service.curve_point_service;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.dto.CurvePointDTO;
 
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  * @author Subhi
  */
 public interface CurvePointService {
-    List<CurvePoint> getCurvePoints();
-    CurvePoint getCurvePointById(Integer id);
-    CurvePoint saveNewCurvePoint(CurvePoint curvePoint);
-    void updateCurvePoint(CurvePoint curvePoint);
+    List<CurvePointDTO> getCurvePoints();
+    CurvePointDTO getCurvePointById(Integer id);
+    CurvePointDTO saveNewCurvePoint(CurvePointDTO curvePointDTO);
+    void updateCurvePoint(CurvePointDTO curvePointDTO);
     void deleteCurvePointById(Integer id);
 
 }

@@ -1,6 +1,7 @@
 package com.nnk.springboot.service.trade_service;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.dto.TradeDTO;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ import java.util.List;
  * @author Subhi
  */
 public interface TradeService {
-    List<Trade> getTrades();
-    Trade getTradeById(Integer id);
-    Trade saveNewTrade(Trade trade);
-    void updateTrade(Trade trade);
+    List<TradeDTO> getTrades();
+    TradeDTO getTradeById(Integer id);
+    TradeDTO saveNewTrade(TradeDTO tradeDTO);
+    void updateTrade(TradeDTO tradeDTO);
     void deleteTradeById(Integer id);
 }

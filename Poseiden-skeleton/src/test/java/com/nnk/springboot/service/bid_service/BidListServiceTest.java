@@ -46,18 +46,18 @@ class BidListServiceTest {
 
         when(mapperService.fromBidList(bidList1)).thenReturn(bidListDTO_1);
         when(mapperService.fromBidList(bidList2)).thenReturn(bidListDTO_2);
-        bidListDTO_1 = new BidListDTO("Account1", "Type1", 2560D);
-        bidListDTO_2 = new BidListDTO("Account2", "Type2", 2560D);
-        //when(mapperService.fromBidLists(bidLists)).thenReturn(bidListDTOs);
-        bidListDTOs.add(bidListDTO_1);
-        bidListDTOs.add(bidListDTO_2);
+
+        bidListDTO_1.setBidId(bidList1.getBidListId());
+        bidListDTO_1.setType(bidList1.getType());
+        bidListDTO_1.setAccount(bidList1.getAccount());
+        bidListDTO_1.setBidQuantity(bidList1.getBidQuantity());
 
         when(bidListRepository.findAll()).thenReturn(bidLists);
 
         List<BidListDTO> bidListDTOList = bidListService.getBidList();
 
         assertThat(bidListDTOList.size()).isEqualTo(2);
-        //assertThat(bidListDTOList.get(0).getType()).isEqualTo("Type1");
+        assertThat(bidListDTOList.get(0).getType()).isEqualTo("Type1");
         assertThat(bidListDTOList).isNotNull();
     }
 
@@ -82,8 +82,6 @@ class BidListServiceTest {
         verify(bidListRepository, times(1)).save(any());
         verify(mapperService, times(1)).fromBidListDTO(any());
 
-
-
     }
 
     @Test
@@ -93,11 +91,14 @@ class BidListServiceTest {
 
         when(mapperService.fromBidList(any())).thenReturn(bidListDTO);
         bidListDTO.setBidId(5);
+        bidListDTO.setType(bidList.getType());
 
         when(bidListRepository.findById(anyInt())).thenReturn(Optional.of(bidList));
 
         BidListDTO bidListDTOById = bidListService.getBidListById(5);
         assertThat(bidListDTOById.getBidId()).isEqualTo(5);
+        assertThat(bidListDTOById.getType()).isEqualTo(bidList.getType());
+
     }
 
     @Test
@@ -132,6 +133,5 @@ class BidListServiceTest {
         verify(bidListRepository,times(1)).deleteById(anyInt());
         verify(bidListRepository, times(1)).findById(anyInt());
         assertThat(bidListService.getBidListById(4)).isNull();
-
     }
 }

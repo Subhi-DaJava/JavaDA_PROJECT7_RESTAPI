@@ -6,7 +6,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,11 +48,21 @@ public class MapperService {
         BeanUtils.copyProperties (bidListDTO, bidList); // (source, target)
         return bidList;
     }
+    /**
+     * Transfer the properties of BidListDTO to BidList's some properties
+     * @param bidListDTOList List<BidListDTO>
+     * @return bidLists List<BidList>
+     */
 
     public List<BidList> fromBidListDTOs (List<BidListDTO> bidListDTOList) {
         List<BidList> bidLists = bidListDTOList.stream().map(this::fromBidListDTO).collect(Collectors.toList());
         return bidLists;
     }
+    /**
+     * Transfer the properties of BidList from DDB to BidListDTOs' some properties
+     * @param bidLists List<BidList>
+     * @return bidListDTOList List<BidListDTO>
+     */
 
     public List<BidListDTO> fromBidLists(List<BidList> bidLists) {
         List<BidListDTO> bidListDTOList = bidLists.stream().map(this::fromBidList).collect(Collectors.toList());
@@ -88,7 +97,8 @@ public class MapperService {
      */
     public CurvePointDTO fromCurvePoint (CurvePoint curvePoint) {
         CurvePointDTO curvePointDTO = new CurvePointDTO();
-        BeanUtils.copyProperties(curvePoint, curvePointDTO); // (source, target)
+        BeanUtils.copyProperties (curvePoint, curvePointDTO); // (source, target)
+        curvePointDTO.setCurveid(curvePoint.getId());
         return curvePointDTO;
     }
     /**
@@ -99,6 +109,7 @@ public class MapperService {
     public Rating fromRatingDTO (RatingDTO ratingDTO) {
         Rating rating = new Rating();
         BeanUtils.copyProperties (ratingDTO, rating); // (source, target)
+        rating.setOrderNumber(ratingDTO.getOrderNumber());
         return rating;
     }
     /**
@@ -109,6 +120,7 @@ public class MapperService {
     public RatingDTO fromRating (Rating rating) {
         RatingDTO ratingDTO = new RatingDTO();
         BeanUtils.copyProperties(rating, ratingDTO); // (source, target)
+        ratingDTO.setRatingID(rating.getId());
         return ratingDTO;
     }
     /**
@@ -129,6 +141,7 @@ public class MapperService {
     public RuleNameDTO fromRuleName (RuleName ruleName) {
         RuleNameDTO ruleNameDTO = new RuleNameDTO();
         BeanUtils.copyProperties (ruleName, ruleNameDTO); // (source, target)
+        ruleNameDTO.setRuleNameId(ruleName.getId());
         return ruleNameDTO;
     }
     /**
@@ -149,6 +162,7 @@ public class MapperService {
     public TradeDTO fromTrade (Trade trade) {
         TradeDTO tradeDTO = new TradeDTO();
         BeanUtils.copyProperties (trade, tradeDTO); // (source, target)
+        tradeDTO.setId(trade.getTradeId());
         return tradeDTO;
     }
 

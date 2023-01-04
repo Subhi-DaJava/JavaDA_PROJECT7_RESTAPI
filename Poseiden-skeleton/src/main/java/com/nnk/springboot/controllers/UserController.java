@@ -1,7 +1,12 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.UserGetDTO;
+import com.nnk.springboot.dto.UserSaveDTO;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.user_service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,46 +18,85 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
+/**
+ * UserController send requests to backend, getAllUserList, saveNewUser, getUserById, updateUserExisting, deleteUserExisting
+ * @author Subhi
+ */
 @Controller
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserRepository userRepository;
+    private UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    /**
+     * Page list show all User
+     * @param model Model
+     * @return User page
+     */
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
-        model.addAttribute("users", userRepository.findAll());
+    public String home(Model model) {
+        logger.debug("This home(from UserController) starts here.");
+        model.addAttribute("users", userService.getUserList());
+        logger.info("User home page successfully loaded(from home, UserController).");
+
         return "user/list";
     }
-
+    /**
+     * Show Use addForm with the object UserSaveDTO
+     * @return UserAdd Page
+     */
     @GetMapping("/user/add")
-    public String addUser(User bid) {
+    public String addUserForm(UserSaveDTO userSaveDTO) { // object userSaveDTO interact with add.html
+        logger.debug("This addUserForm(from UserController) starts here.");
         return "user/add";
     }
-
+    /**
+     * Sava a User
+     * @param user
+     * @param result BindingResult
+     * @return UserList Page
+     */
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid UserSaveDTO user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
+            userService.saveNewUser(user);
+            logger.info("New User successfully saved in DDB(from validatePostMapping, UserController)");
             return "redirect:/user/list";
         }
+        logger.error("result error= {}, (from validePostMapping, UserController)", result.getFieldErrors());
         return "user/add";
     }
-
+    /**
+     * Show updateForm
+     * @param id Integer
+     * @param model Model
+     * @return UserUpdate Page with UserDTO
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
-        model.addAttribute("user", user);
+        logger.debug("This showUpdateForm(from UserController) starts here.");
+        UserGetDTO userGetDTO = userService.getUserById(id);
+        userGetDTO.setId(id);
+        userGetDTO.setUserPassword("");
+        model.addAttribute("user", userGetDTO);
         return "user/update";
     }
-
+    /**
+     * Update a User by id, checking the fields before call to service
+     * @param id Integer
+     * @param user UserSaveDTO
+     * @param result BindingResult
+     * @return UserList Page
+     */
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
+    public String updateUser(@PathVariable("id") Integer id, @Valid UserSaveDTO user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";
@@ -60,17 +104,21 @@ public class UserController {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        user.setUserId(id);
+        userService.saveNewUser(user);
+        logger.info("User with id: {} is successfully updated(from, updatePostMapping, UserController)", id);
         return "redirect:/user/list";
     }
-
+    /**
+     * Delete User by given UserId
+     * @param id Integer
+     * @return UserList Page
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+        logger.debug("This deleteUser(from UserController) starts here.");
+        userService.deleteUserById(id);
+        logger.info("User successfully deleted by given Id: {}, from UserController.", id);
         return "redirect:/user/list";
     }
 }
