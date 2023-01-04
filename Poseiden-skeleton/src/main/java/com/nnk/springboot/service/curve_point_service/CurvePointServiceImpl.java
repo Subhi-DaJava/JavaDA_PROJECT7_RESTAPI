@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class CurvePointServiceImpl implements CurvePointService {
     private static final Logger logger = LoggerFactory.getLogger(CurvePointServiceImpl.class);
-    private CurvePointRepository curvePointRepository;
-    private MapperService mapperService;
+    private final CurvePointRepository curvePointRepository;
+    private final MapperService mapperService;
 
     public CurvePointServiceImpl(CurvePointRepository curvePointRepository, MapperService mapperService) {
         this.curvePointRepository = curvePointRepository;

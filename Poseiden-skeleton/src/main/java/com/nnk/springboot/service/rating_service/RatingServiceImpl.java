@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class RatingServiceImpl implements RatingService {
     private static final Logger logger = LoggerFactory.getLogger(RatingServiceImpl.class);
-    private RatingRepository ratingRepository;
-    private MapperService mapperService;
+    private final RatingRepository ratingRepository;
+    private final MapperService mapperService;
 
     public RatingServiceImpl(RatingRepository ratingRepository, MapperService mapperService) {
         this.ratingRepository = ratingRepository;

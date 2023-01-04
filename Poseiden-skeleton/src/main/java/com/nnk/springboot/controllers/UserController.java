@@ -1,13 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.dto.UserGetDTO;
-import com.nnk.springboot.dto.UserSaveDTO;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.user_service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +21,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private UserRepository userRepository;
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -47,11 +40,11 @@ public class UserController {
         return "user/list";
     }
     /**
-     * Show Use addForm with the object UserSaveDTO
+     * Show Use addForm
      * @return UserAdd Page
      */
     @GetMapping("/user/add")
-    public String addUserForm(UserSaveDTO userSaveDTO) { // object userSaveDTO interact with add.html
+    public String addUserForm(User user) { // object user interact with add.html
         logger.debug("This addUserForm(from UserController) starts here.");
         return "user/add";
     }
@@ -62,7 +55,7 @@ public class UserController {
      * @return UserList Page
      */
     @PostMapping("/user/validate")
-    public String validate(@Valid UserSaveDTO user, BindingResult result, Model model) {
+    public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -82,21 +75,20 @@ public class UserController {
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.debug("This showUpdateForm(from UserController) starts here.");
-        UserGetDTO userGetDTO = userService.getUserById(id);
-        userGetDTO.setId(id);
-        userGetDTO.setUserPassword("");
-        model.addAttribute("user", userGetDTO);
+        User user = userService.getUserById(id);
+        user.setPassword("");
+        model.addAttribute("user", user);
         return "user/update";
     }
     /**
      * Update a User by id, checking the fields before call to service
      * @param id Integer
-     * @param user UserSaveDTO
+     * @param user User
      * @param result BindingResult
      * @return UserList Page
      */
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid UserSaveDTO user,
+    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";
@@ -104,8 +96,9 @@ public class UserController {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setUserId(id);
-        userService.saveNewUser(user);
+        user.setId(id);
+
+        userService.updateUser(user);
         logger.info("User with id: {} is successfully updated(from, updatePostMapping, UserController)", id);
         return "redirect:/user/list";
     }

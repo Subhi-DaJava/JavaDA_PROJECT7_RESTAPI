@@ -1,8 +1,6 @@
 package com.nnk.springboot.service.user_service;
 
-import com.nnk.springboot.dto.BidListDTO;
-import com.nnk.springboot.dto.UserGetDTO;
-import com.nnk.springboot.dto.UserSaveDTO;
+import com.nnk.springboot.domain.User;
 
 import java.util.List;
 /**
@@ -11,12 +9,12 @@ import java.util.List;
  * @author Subhi
  */
 public interface UserService {
-    List<UserGetDTO> getUserList();
-    UserGetDTO saveNewUser(UserSaveDTO userSaveDTO);
+    List<User> getUserList();
+    User saveNewUser(User user);
 
-    UserGetDTO getUserById(Integer id);
+    User getUserById(Integer id);
 
-    void updateUser(UserSaveDTO userSaveDTO);
+    void updateUser(User user);
 
     void deleteUserById(Integer id);
 }

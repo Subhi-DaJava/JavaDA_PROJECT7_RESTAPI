@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class BidListServiceImpl implements BidListService {
     private static final Logger logger = LoggerFactory.getLogger(BidListServiceImpl.class);
-    private BidListRepository bidListRepository;
-    private MapperService mapperService;
+    private final BidListRepository bidListRepository;
+    private final MapperService mapperService;
 
     public BidListServiceImpl(BidListRepository bidListRepository, MapperService mapperService) {
         this.bidListRepository = bidListRepository;

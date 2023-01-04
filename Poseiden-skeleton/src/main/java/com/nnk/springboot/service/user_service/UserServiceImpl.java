@@ -1,12 +1,7 @@
 package com.nnk.springboot.service.user_service;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.dto.BidListDTO;
-import com.nnk.springboot.dto.UserGetDTO;
-import com.nnk.springboot.dto.UserSaveDTO;
 import com.nnk.springboot.exception.ResourcesNotFoundException;
-import com.nnk.springboot.mapper.MapperService;
 import com.nnk.springboot.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * UserServiceImpl: CRUD
@@ -25,21 +19,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private UserRepository userRepository;
-    private MapperService mapperService;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, MapperService mapperService) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.mapperService = mapperService;
     }
     /**
-     * Get the all Users from DDB and transfer to UserGetDTOs
-     * @return List of UserGetDTO
+     * Get the all Users from DDB
+     * @return List of User
      */
     @Override
-    public List<UserGetDTO> getUserList() {
+    public List<User> getUserList() {
         logger.debug("This getUserList(from UserServiceImpl) starts here.");
-        List<UserGetDTO> userGetDTOs;
         List<User> users = userRepository.findAll();
 
         if(users.isEmpty()){
@@ -47,49 +38,40 @@ public class UserServiceImpl implements UserService {
             return new ArrayList<>();
         }
         logger.info("Users successfully loaded from DDB(from getUserList, UserServiceImpl).");
-        userGetDTOs = users.stream().map(user ->
-                mapperService.fromUser(user)
-        ).collect(Collectors.toList());
-        return userGetDTOs;
+        return users;
     }
     /**
-     * Save a new User via UserSaveDTO
-     * @param userSaveDTO UserSaveDTO
-     * @return UserGetDTO
+     * Save a new User
+     * @param user User
+     * @return User
      */
     @Override
-    public UserGetDTO saveNewUser(UserSaveDTO userSaveDTO) {
+    public User saveNewUser(User user) {
         logger.debug("This saveNewUser(from UserServiceImpl) starts here.");
-        User user = mapperService.fromUserSaveDTO(userSaveDTO);
         User savedUser = userRepository.save(user);
-        logger.info("New User successfully saved into DDB(from saveNewUser, UserServiceImpl).");
-        UserGetDTO returnUserGetDTO = mapperService.fromUser(savedUser);
-        return returnUserGetDTO;
+        logger.info("New User successfully saved into DDB with id: {} (from saveNewUser, UserServiceImpl).", savedUser.getId());
+        return savedUser;
     }
     /**
-     * Find User by its Id and return UserGetDTO
+     * Find User by its Id and return if User exists
      * @param id Integer
-     * @return UserGetDTO
+     * @return User
      */
     @Override
-    public UserGetDTO getUserById(Integer id) {
+    public User getUserById(Integer id) {
         logger.debug("This getUserById(from UserServiceImpl) starts here.");
         User user = getUserByUserId(id);
-
         logger.info("User successfully found by its id: {} (from getUserById, UserServiceImpl).", id);
-        return mapperService.fromUser(user);
+        return user;
     }
     /**
      * Update a User if its id exists in DDB
-     * @param userSaveDTO UserSaveDTO
+     * @param user User
      */
     @Override
-    public void updateUser(UserSaveDTO userSaveDTO) {
-        User updateUser = mapperService.fromUserSaveDTO(userSaveDTO);
-        updateUser.setId(userSaveDTO.getUserId());
-
-        logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", userSaveDTO.getUserId());
-        userRepository.save(updateUser);
+    public void updateUser(User user) {
+        logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", user.getId());
+        userRepository.save(user);
     }
 
     @Override

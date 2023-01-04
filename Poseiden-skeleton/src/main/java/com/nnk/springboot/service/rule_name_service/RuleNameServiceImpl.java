@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class RuleNameServiceImpl implements RuleNameService {
     private static final Logger logger = LoggerFactory.getLogger(RuleNameServiceImpl.class);
-    private RuleNameRepository ruleNameRepository;
-    private MapperService mapperService;
+    private final RuleNameRepository ruleNameRepository;
+    private final MapperService mapperService;
 
     public RuleNameServiceImpl(RuleNameRepository ruleNameRepository, MapperService mapperService) {
         this.ruleNameRepository = ruleNameRepository;

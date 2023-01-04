@@ -13,32 +13,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class MapperService {
     /**
-     * Transfer the properties of User form DDB to UserGetDTO sauf Password
-     * @param user Use
-     * @return UserGetDTO
-     */
-    public UserGetDTO fromUser (User user) {
-        /*     UserGetDTO userGetDTO_Manuel = new UserGetDTO();
-        userGetDTO_Manuel.setId(user.getId());
-        userGetDTO_Manuel.setFullname(user.getFullname());
-        userGetDTO_Manuel.setUsername(user.getUsername());
-        userGetDTO_Manuel.setRole(user.getRole());*/
-
-        UserGetDTO userGetDTO = new UserGetDTO();
-        BeanUtils.copyProperties (user, userGetDTO); // (source, target)
-        return userGetDTO;
-    }
-    /**
-     * Transfer the properties of UserSaveDTO to User sauf Id
-     * @param userSaveDTO UserSaveDTO
-     * @return user User
-     */
-    public User fromUserSaveDTO (UserSaveDTO userSaveDTO) {
-        User user = new User();
-        BeanUtils.copyProperties (userSaveDTO, user); // (source, target)
-        return user;
-    }
-    /**
      * Transfer the properties of BidListDTO to BidList's some properties
      * @param bidListDTO BidListDTO
      * @return bidList BidList

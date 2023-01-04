@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class TradeServiceImpl implements TradeService {
     private static final Logger logger = LoggerFactory.getLogger(TradeServiceImpl.class);
-    private TradeRepository tradeRepository;
-    private MapperService mapperService;
+    private final TradeRepository tradeRepository;
+    private final MapperService mapperService;
 
     public TradeServiceImpl(TradeRepository tradeRepository, MapperService mapperService) {
         this.tradeRepository = tradeRepository;

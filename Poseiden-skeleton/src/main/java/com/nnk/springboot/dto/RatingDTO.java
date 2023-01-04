@@ -1,6 +1,5 @@
 package com.nnk.springboot.dto;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,7 +14,6 @@ public class RatingDTO {
     private String fitchRating;
     @Min(1)
     @NotNull(message = "must not be null")
-    @Max(4)
     private Integer orderNumber;
 
     public Integer getRatingID() {
