@@ -4,8 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
@@ -13,16 +11,18 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @NotBlank(message = "ModdysRaing must not be null")
     @Column(name = "moodys_rating", length = 20)
     private String moodysRating;
+    @NotBlank(message = "SandPRating must not be null")
     @Column(name = "sand_p_rating", length = 20)
     private String sandPRating;
+    @NotBlank(message = "FitchRating must not be null")
     @Column(name = "fitch_rating", length = 20)
     private String fitchRating;
     @Min(1)
     @Column(name = "order_number", length = 4)
-    @NotNull
+    @NotNull(message = "OrderNumber must not be null")
     private Integer orderNumber;
 
     public Rating() {

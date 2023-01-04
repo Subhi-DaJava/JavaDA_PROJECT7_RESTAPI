@@ -1,10 +1,8 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
-
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -21,7 +19,7 @@ public class BidList {
     @NotBlank(message = "Type is mandatory")
     @Column(length = 30)
     private String type;
-
+    @NotNull(message = "Bid Quantity is mandatory")
     @Column(name = "bid_quantity")
     private Double bidQuantity;
     @Column(name = "ask_quantity")

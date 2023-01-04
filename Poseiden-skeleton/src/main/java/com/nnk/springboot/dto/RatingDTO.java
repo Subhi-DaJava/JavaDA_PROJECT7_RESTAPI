@@ -1,19 +1,23 @@
 package com.nnk.springboot.dto;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RatingDTO {
     private Integer ratingID;
+    @NotBlank(message = "MoodysRating must not be null")
     @Size(max = 20, message = "Max characters 20")
     private String moodysRating;
+    @NotBlank(message = "SandPRating must not be null")
     @Size(max = 20, message = "Max characters 20")
     private String sandPRating;
+    @NotBlank(message = "FitchRating must not be null")
     @Size(max = 20, message = "Max characters 20")
     private String fitchRating;
     @Min(1)
-    @NotNull(message = "must not be null")
+    @NotNull(message = "Order must not be null")
     private Integer orderNumber;
 
     public Integer getRatingID() {

@@ -7,9 +7,11 @@ import javax.validation.constraints.NotNull;
 public class CurvePointDTO {
     private Integer curveid;
     @Min(1)
-    @NotNull(message = "must not be null")
+    @NotNull(message = "CurveId must not be null")
     private Integer curveId;
+    @NotNull(message = "Term must not be null")
     private Double term;
+    @NotNull(message = "Value must not be null")
     private Double value;
 
     public CurvePointDTO() {

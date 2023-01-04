@@ -1,6 +1,7 @@
 package com.nnk.springboot.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class BidListDTO {
     private Integer bidId;
@@ -8,6 +9,7 @@ public class BidListDTO {
     private String account;
     @NotBlank(message = "Type is mandatory")
     private String type;
+    @NotNull(message = "Bid Quantity is mandatory")
     private Double bidQuantity;
 
     public BidListDTO() {
