@@ -20,6 +20,7 @@ import javax.validation.Valid;
  * @author Subhi
  */
 @Controller
+@RequestMapping("/api")
 public class TradeController {
     private static final Logger logger = LoggerFactory.getLogger(TradeController.class);
     private TradeService tradeService;
@@ -60,7 +61,7 @@ public class TradeController {
         if(!result.hasErrors()){
             tradeService.saveNewTrade(tradeDTO);
             logger.info("New Trade successfully saved in DDB(from validatePostMapping, TradeController)");
-            return "redirect:/trade/list";
+            return "redirect:/api/trade/list";
         }
         logger.error("result error= {}, (from validePostMapping, TradeController)", result.getFieldErrors());
         return "trade/add";
@@ -97,7 +98,7 @@ public class TradeController {
         tradeDTO.setId(id);
         tradeService.updateTrade(tradeDTO);
         logger.info("Trade with id: {} is successfully updated(from, updateTrade Post Mapping, TradeController)", id);
-        return "redirect:/trade/list";
+        return "redirect:/api/trade/list";
     }
     /**
      * Delete Trade by given TradeId
@@ -109,6 +110,6 @@ public class TradeController {
         logger.debug("This deleteTrade(from TradeController) starts here.");
         tradeService.deleteTradeById(id);
         logger.info("Trade successfully deleted by given Id: {}, from TradeController.", id);
-        return "redirect:/trade/list";
+        return "redirect:/api/trade/list";
     }
 }

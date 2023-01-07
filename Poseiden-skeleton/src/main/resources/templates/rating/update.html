@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/rating/update/{id}(id=${ratingDTO.ratingID})}" th:object="${ratingDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating-->
+		<form th:action="@{/api/rating/update/{id}(id=${ratingDTO.ratingID})}" th:object="${ratingDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating-->
 			<div>
 				<input class="form-control" type="hidden" th:field="*{ratingID}"/>
 			</div>
@@ -40,7 +40,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/rating/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/rating/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update Rating</button>
 			</div>
 		</form>

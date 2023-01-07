@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -13,8 +13,8 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/trade/update/{id}(id=${tradeDTO.id})}" th:object="${tradeDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List-->
+		<form th:action="@{/api/trade/update/{id}(id=${tradeDTO.id})}" th:object="${tradeDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!-- Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List-->
 			<div>
 				<input class="form-control" type="hidden" th:field="*{id}"/>
 			</div>
@@ -34,7 +34,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/trade/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/trade/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update Trade</button>
 			</div>
 		</form>

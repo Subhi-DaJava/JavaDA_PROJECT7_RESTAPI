@@ -1,6 +1,5 @@
 package com.nnk.springboot.dto;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 

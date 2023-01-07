@@ -20,7 +20,7 @@ public class HomeController {
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
-		return "redirect:/bidList/list";
+		return "redirect:/api/bidList/list";
 	}
 
 

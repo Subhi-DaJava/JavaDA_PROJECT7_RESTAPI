@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/rating/validate}" th:object="${ratingDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating-->
+		<form th:action="@{/api/rating/validate}" th:object="${ratingDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating-->
 			<div class="mb-4">
 				<label class="mb-2" for="moodysRating">Moody'S Rating</label>
 				<input id="moodysRating" class="form-control" type="text" name="moodysRating" th:field="*{moodysRating}" placeholder="Moody'S Rating">
@@ -37,7 +37,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/rating/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/rating/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Add Rating</button>
 			</div>
 		</form>

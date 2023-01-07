@@ -4,17 +4,17 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			<a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+			<a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
+			<a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/api/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
@@ -26,7 +26,7 @@
 	</div>
 	<div class="row"><h2>Rating List</h2></div>
 	<div class="row">
-		<a href="/rating/add" class="btn btn-primary btn-sm">Add New</a>
+		<a href="/api/rating/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -39,7 +39,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Rating to the table, the Action column will have Edit & Delete buttons -->
+			<!--  Show all Rating to the table, the Action column will have Edit & Delete buttons -->
 			<tr th:each="rating : ${ratingList}">
 				<td th:text="${rating.ratingID}"></td>
 				<td th:text="${rating.moodysRating}"></td>
@@ -47,9 +47,9 @@
 				<td th:text="${rating.fitchRating}"></td>
 				<td th:text="${rating.orderNumber}"></td>
 				<td>
-					<a th:href="@{/rating/update/{id}(id=${rating.ratingID})}"><button class="btn btn-info"><span style="color:black;">Edit</span></button></a>
+					<a th:href="@{/api/rating/update/{id}(id=${rating.ratingID})}"><button class="btn btn-info"><span style="color:black;">Edit</span></button></a>
 					|
-					<a th:href="@{/rating/delete/{id}(id=${rating.ratingID})}"><button class="btn btn-danger"> <span style="color: black">Delete</span></button></a>
+					<a th:href="@{/api/rating/delete/{id}(id=${rating.ratingID})}"><button class="btn btn-danger"> <span style="color: black">Delete</span></button></a>
 
 				</td>
 			</tr>

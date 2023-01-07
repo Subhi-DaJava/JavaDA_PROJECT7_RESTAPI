@@ -18,6 +18,7 @@ import javax.validation.Valid;
  * @author Subhi
  */
 @Controller
+@RequestMapping("/api")
 public class CurveController {
     private static final Logger logger = LoggerFactory.getLogger(CurveController.class);
     private CurvePointService curvePointService;
@@ -59,7 +60,7 @@ public class CurveController {
         if(!result.hasErrors()){
             curvePointService.saveNewCurvePoint(curvePoint);
             logger.info("New CurvePoint successfully saved in DDB(from validatePostMapping, CurveController)");
-            return "redirect:/curvePoint/list";
+            return "redirect:/api/curvePoint/list";
         }
         logger.error("result error= {}, (from validePostMapping, CurveController)", result.getFieldErrors());
         return "curvePoint/add";
@@ -96,7 +97,7 @@ public class CurveController {
         curvePointDTO.setCurveid(id);
         curvePointService.updateCurvePoint(curvePointDTO);
         logger.info("CurvePoint with id: {} is successfully updated(from, updateCurvePoint Post Mapping, CurveController)", id);
-        return "redirect:/curvePoint/list";
+        return "redirect:/api/curvePoint/list";
     }
     /**
      * Delete CurvePoint by given CurvePointId
@@ -108,6 +109,6 @@ public class CurveController {
         logger.debug("This deleteCurvePoint(from CurveController) starts here.");
         curvePointService.deleteCurvePointById(id);
         logger.info("CurvePoint successfully deleted by given Id: {}, from CurveController.", id);
-        return "redirect:/curvePoint/list";
+        return "redirect:/api/curvePoint/list";
     }
 }

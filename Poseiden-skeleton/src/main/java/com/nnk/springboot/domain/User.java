@@ -10,7 +10,7 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
-    @Column(length = 125)
+    @Column(length = 125, unique = true)
     private String username;
     @NotBlank(message = "Password is mandatory")
     @Column(name = "password", length = 125) //Todo: exigence, pattern

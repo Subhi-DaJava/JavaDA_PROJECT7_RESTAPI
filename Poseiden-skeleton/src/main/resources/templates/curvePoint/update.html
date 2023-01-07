@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -13,8 +13,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/curvePoint/update/{id}(id=${curvePointDTO.curveid})}" th:object="${curvePointDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point-->
+		<form th:action="@{/api/curvePoint/update/{id}(id=${curvePointDTO.curveid})}" th:object="${curvePointDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!-- Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point-->
 			<div>
 				<input class="form-control" type="hidden" th:field="*{curveid}"/>
 			</div>
@@ -34,7 +34,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/curvePoint/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/curvePoint/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update CurvePoint</button>
 			</div>
 		</form>

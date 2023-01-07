@@ -19,6 +19,7 @@ import javax.validation.Valid;
  */
 
 @Controller
+@RequestMapping("/api")
 public class BidListController {
     private static final Logger logger = LoggerFactory.getLogger(BidListController.class);
    private BidListService bidListService;
@@ -60,7 +61,7 @@ public class BidListController {
         if(!result.hasErrors()){
             bidListService.saveNewBidList(bidList);
             logger.info("New BidList successfully saved in DDB(from validatePostMapping, BidListController)");
-            return "redirect:/bidList/list";
+            return "redirect:/api/bidList/list";
         }
         logger.error("result error= {}, (from validePostMapping, BidListController)", result.getFieldErrors());
         return "bidList/add";
@@ -97,7 +98,7 @@ public class BidListController {
         bidListDTO.setBidId(id);
         bidListService.updateBidList(bidListDTO);
         logger.info("BidList with id: {} is successfully updated(from, updatePostMapping, BidListController)", id);
-        return "redirect:/bidList/list";
+        return "redirect:/api/bidList/list";
     }
 
     /**
@@ -110,6 +111,6 @@ public class BidListController {
         logger.debug("This deleteBid(from BidListController) starts here.");
         bidListService.deleteBidListById(id);
         logger.info("BidList successfully deleted by given Id: {}, from BidListController.", id);
-        return "redirect:/bidList/list";
+        return "redirect:/api/bidList/list";
     }
 }

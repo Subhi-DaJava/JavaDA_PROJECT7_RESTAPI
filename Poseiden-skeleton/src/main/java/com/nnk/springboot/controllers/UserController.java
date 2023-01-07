@@ -56,6 +56,13 @@ public class UserController {
      */
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
+        User checkUser = userService.findByUsername(user.getUsername());
+        if (checkUser != null) {
+            logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
+            String errorMsg = "Username already exists";
+            model.addAttribute("userExist", errorMsg);
+            return "user/add";
+        }
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -90,10 +97,16 @@ public class UserController {
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        User checkUser = userService.findByUsername(user.getUsername());
         if (result.hasErrors()) {
             return "user/update";
         }
-
+        if(checkUser != null) {
+            logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
+            String errorMsg = "Username already exists";
+            model.addAttribute("userExist", errorMsg);
+            return "user/update";
+        }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);

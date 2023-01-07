@@ -1,44 +1,39 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nnk.springboot.service.user_service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author Subhi
+ */
 @Controller
-@RequestMapping("app")
 public class LoginController {
+    private static final Logger logger = LogManager.getLogger(LoginController.class);
+    private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    /*@GetMapping("/login")
-    public ModelAndView login() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
-        return mav;
-    }*/
-    @GetMapping("/login")
-    public String login() {
-        return "bidList/list";
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("secure/article-details")
-    public ModelAndView getAllUserArticles() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userRepository.findAll());
-        mav.setViewName("user/list");
-        return mav;
+    public String getAllUserArticles(Model model) {
+        logger.debug("This getAllUserArticles(from LoginController) starts here.");
+        model.addAttribute("users", userService.getUserList());
+        logger.info("This getAllUserArticles(from LoginController) successfully load all users with this path starts here.");
+        return "user/list";
     }
 
-    @GetMapping("error")
-    public ModelAndView error() {
-        ModelAndView mav = new ModelAndView();
+    @GetMapping("/403")
+    public String error(Model model) {
+        logger.debug("This error403(from LoginController) starts here.");
         String errorMessage= "You are not authorized for the requested data.";
-        mav.addObject("errorMsg", errorMessage);
-        mav.setViewName("403");
-        return mav;
+        model.addAttribute("errorMsg", errorMessage);
+
+        return "403";
     }
 }

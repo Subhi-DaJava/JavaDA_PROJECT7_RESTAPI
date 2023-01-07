@@ -5,7 +5,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
@@ -20,8 +19,10 @@ public class CurvePoint {
     @Column(name = "asofdate")
     private Timestamp asOfDate;
     @NotNull
+    @Column(name = "term")
     private Double term;
     @NotNull
+    @Column(name = "value")
     private Double value;
 
     @Column(name = "creationdate")

@@ -21,6 +21,7 @@ import javax.validation.Valid;
  * @author Subhi
  */
 @Controller
+@RequestMapping("/api")
 public class RatingController {
     private static final Logger logger = LoggerFactory.getLogger(RatingController.class);
     private RatingService ratingService;
@@ -61,7 +62,7 @@ public class RatingController {
         if(!result.hasErrors()){
             ratingService.saveNewRating(ratingDTO);
             logger.info("New Rating successfully saved in DDB(from validatePostMapping, RatingController)");
-            return "redirect:/rating/list";
+            return "redirect:/api/rating/list";
         }
         logger.error("result error = {}, (from validePostMapping, RatingController)", result.getFieldErrors());
         return "rating/add";
@@ -108,7 +109,7 @@ public class RatingController {
         ratingDTO.setRatingID(id);
         ratingService.updateRating(ratingDTO);
         logger.info("Rating with id: {} is successfully updated(from, updateRating Post Mapping, RatingController)", id);
-        return "redirect:/rating/list";
+        return "redirect:/api/rating/list";
     }
     /**
      * Delete Rating by given RatingId
@@ -120,6 +121,6 @@ public class RatingController {
         logger.debug("This deleteRating(from RatingController) starts here.");
         ratingService.deleteRatingById(id);
         logger.info("Rating successfully deleted by given Id: {}, from RatingController.", id);
-        return "redirect:/rating/list";
+        return "redirect:/api/rating/list";
     }
 }

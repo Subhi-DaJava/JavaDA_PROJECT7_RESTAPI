@@ -10,7 +10,7 @@ public class RuleName {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     @NotBlank(message = "Name is mandatory")
-    @Column(name = "name", length = 125)
+    @Column(name = "name", length = 20)
     private String name;
 
     @NotBlank(message = "Description is mandatory")

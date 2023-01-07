@@ -84,10 +84,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findByUsername(String username) {
+        logger.debug("This findByUsername(from UserServiceImpl starts here.) ");
+        User user = userRepository.findByUsername(username);
+        if(user == null) {
+            logger.error("User with username with: {} doesn't exist in DDB!", username);
+            //throw new ResourcesNotFoundException("This Username " + username + " doesn't exist, from findByUsername, UserServiceImpl.");
+        }
+        logger.info("User which username: {} successfully loaded from DDB(from UserServiceImpl)", username);
+        return user;
+    }
+
     private User getUserByUserId(Integer id) {
         User user = userRepository.findById(id).orElseThrow(() -> {
             logger.error("This userId: {} not found!", id);
-            throw new ResourcesNotFoundException("This User doesn't exist with this id : " + id + " , from getUserByUserId, BidListServiceImpl.");
+            throw new ResourcesNotFoundException("This User doesn't exist with this id : " + id + " , from getUserByUserId, UserServiceImpl.");
         });
         return user;
     }

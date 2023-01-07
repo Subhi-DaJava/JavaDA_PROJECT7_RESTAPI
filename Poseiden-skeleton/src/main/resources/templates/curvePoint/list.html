@@ -4,17 +4,17 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			<a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+			<a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
+			<a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/api/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
@@ -26,7 +26,7 @@
 	</div>
 	<div class="row"><h2>Curve Point List</h2></div>
 	<div class="row">
-		<a href="/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
+		<a href="/api/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -38,16 +38,16 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
+			<!-- Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
 			<tr th:each="curve : ${curvePointList}">
 				<td th:text="${curve.curveid}"></td>
 				<td th:text="${curve.curveId}"></td>
 				<td th:text="${curve.term}"></td>
 				<td th:text="${curve.value}"></td>
 				<td>
-					<a th:href="@{/curvePoint/update/{id}(id=${curve.curveid})}"><button class="btn btn-primary"><span style="color:black;">Edit</span></button></a>
+					<a th:href="@{/api/curvePoint/update/{id}(id=${curve.curveid})}"><button class="btn btn-primary"><span style="color:black;">Edit</span></button></a>
 					|
-					<a th:href="@{/curvePoint/delete/{id}(id=${curve.curveid})}"><button class="btn btn-danger"><span style="color: black">Delete</span></button></a>
+					<a th:href="@{/api/curvePoint/delete/{id}(id=${curve.curveid})}"><button class="btn btn-danger"><span style="color: black">Delete</span></button></a>
 
 				</td>
 			</tr>

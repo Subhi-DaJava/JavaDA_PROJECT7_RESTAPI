@@ -3,7 +3,7 @@ insert into `bidlist` (account, type, bid_quantity) values
                                                      ('bid_account_2', 'type_2', 180.98),
                                                      ('bid_account_3', 'type_3', 147.0);
 
-insert into `curvepoint` (curveid, term, value) values
+insert into curvepoint (curveid, term, value) values
                                                 (2, 169.55, 230),
                                                 (6, 185.62, 147),
                                                 (9, 169.55, 312);

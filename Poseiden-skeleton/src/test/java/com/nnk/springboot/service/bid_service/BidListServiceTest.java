@@ -32,7 +32,6 @@ class BidListServiceTest {
     @BeforeEach
     void setUp() {
         bidListDTOs = new ArrayList<>();
-        bidListDTOs = new ArrayList<>();
     }
 
     @Test

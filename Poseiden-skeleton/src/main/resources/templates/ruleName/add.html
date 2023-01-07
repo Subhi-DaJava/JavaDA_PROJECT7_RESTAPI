@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/ruleName/validate}" th:object="${ruleNameDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName-->
+		<form th:action="@{/api/ruleName/validate}" th:object="${ruleNameDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!-- Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName-->
 			<div class="mb-4">
 				<label class="mb-2" for="ruleName">Rule Name</label>
 				<input id="ruleName" class="form-control" type="text" name="ruleName" th:field="*{name}" placeholder="Rule Name">
@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/ruleName/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/ruleName/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Add Rule</button>
 			</div>
 		</form>

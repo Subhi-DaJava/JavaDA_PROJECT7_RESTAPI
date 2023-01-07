@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/trade/validate}" th:object="${tradeDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade-->
+		<form th:action="@{/api/trade/validate}" th:object="${tradeDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade-->
 			<div class="mb-4">
 				<label class="mb-2" for="account">Account</label>
 				<input id="account" class="form-control" type="text" name="account" th:field="*{account}" placeholder="Account"/>
@@ -32,7 +32,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/trade/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/trade/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Add Trade</button>
 			</div>
 		</form>

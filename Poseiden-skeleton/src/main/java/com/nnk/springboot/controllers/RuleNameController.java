@@ -18,6 +18,7 @@ import javax.validation.Valid;
  * @author Subhi
  */
 @Controller
+@RequestMapping("/api")
 public class RuleNameController {
     private static final Logger logger = LoggerFactory.getLogger(RuleNameController.class);
     private RuleNameService ruleNameService;
@@ -58,7 +59,7 @@ public class RuleNameController {
         if(!result.hasErrors()){
             ruleNameService.saveNewRuleName(ruleNameDTO);
             logger.info("New RuleName successfully saved in DDB(from validatePostMapping, RuleNameController)");
-            return "redirect:/ruleName/list";
+            return "redirect:/api/ruleName/list";
         }
         logger.error("result error = {}, (from validePostMapping, RuleNameController)", result.getFieldErrors());
         return "ruleName/add";
@@ -95,7 +96,7 @@ public class RuleNameController {
         ruleNameDTO.setRuleNameId(id);
         ruleNameService.updateRuleName(ruleNameDTO);
         logger.info("RuleName with id: {} is successfully updated(from, updateRuleName Post Mapping, RuleNameController)", id);
-        return "redirect:/ruleName/list";
+        return "redirect:/api/ruleName/list";
     }
     /**
      * Delete RuleName by given RuleNameId
@@ -107,6 +108,6 @@ public class RuleNameController {
         logger.debug("This deleteRuleName(from RuleNameController) starts here.");
         ruleNameService.deleteRuleNameById(id);
         logger.info("RuleName successfully deleted by given Id: {}, from RuleNameController.", id);
-        return "redirect:/ruleName/list";
+        return "redirect:/api/ruleName/list";
     }
 }

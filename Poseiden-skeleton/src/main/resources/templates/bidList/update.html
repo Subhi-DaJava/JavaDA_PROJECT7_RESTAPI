@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 
 	<div class="row">
 		<!-- bidListDTO refers to the model of bidListDTO in showUpdateForm method in BidListController  -->
-		<form th:action="@{/bidList/update/{id}(id=${bidListDTO.bidId})}" th:object="${bidListDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid-->
+		<form th:action="@{/api/bidList/update/{id}(id=${bidListDTO.bidId})}" th:object="${bidListDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!-- Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid-->
 			<div>
 				<input class="form-control" type="hidden" th:field="*{bidId}">
 			</div>
@@ -35,7 +35,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/bidList/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/bidList/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update BidList</button>
 			</div>
 		</form>

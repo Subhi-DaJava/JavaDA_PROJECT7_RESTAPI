@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/ruleName/update/{id}(id=${ruleNameDTO.ruleNameId})}" th:object="${ruleNameDTO}" method="post" class="form-horizontal" style="width: 100%">
-			<!--TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName-->
+		<form th:action="@{/api/ruleName/update/{id}(id=${ruleNameDTO.ruleNameId})}" th:object="${ruleNameDTO}" method="post" class="form-horizontal" style="width: 100%">
+			<!--Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName-->
 			<div>
 				<input class="form-control" type="hidden" th:field="*{ruleNameId}"/>
 			</div>
@@ -50,7 +50,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></span>
 			</div>
 			<div class="mt-3">
-				<a class="btn btn-danger" th:href="@{/ruleName/list}">Cancel</a>
+				<a class="btn btn-danger" th:href="@{/api/ruleName/list}">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update Rule</button>
 			</div>
 
