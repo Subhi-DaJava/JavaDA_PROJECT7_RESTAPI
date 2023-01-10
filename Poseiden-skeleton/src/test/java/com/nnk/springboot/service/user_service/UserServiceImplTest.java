@@ -102,10 +102,10 @@ class UserServiceImplTest {
 
     @Test
     void findByUsername() {
-        when(userRepository.findByUsername(anyString())).thenReturn(user1);
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user1));
 
-        User userByUsername = userService.findByUsername("user");
+        Optional<User> userByUsername = userService.findByUsername("user");
 
-        assertThat(userByUsername.getUsername()).isEqualTo("user");
+        assertThat(userByUsername.get().getUsername()).isEqualTo("user");
     }
 }

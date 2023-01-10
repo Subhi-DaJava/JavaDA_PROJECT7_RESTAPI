@@ -1,3 +1,5 @@
+use poseidon_p7;
+
 insert into `bidlist` (account, type, bid_quantity) values
                                                      ('bid_account_1', 'type_1', 150.60),
                                                      ('bid_account_2', 'type_2', 180.98),
@@ -31,3 +33,5 @@ insert into `users` (fullname, username, password, role) values
 
 insert into `users` (fullname, username, password, role) values('Administrator', 'admin', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'ADMIN');
 insert into `users` (fullname, username, password, role) values('User', 'user', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa','USER');
+insert into `users` (fullname, username, password, role) values('User', 'user1', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','USER');
+insert into `users` (fullname, username, password, role) values('User', 'user2', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ADMIN, USER');

@@ -2,6 +2,7 @@ package com.nnk.springboot.service.user_service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.ResourcesNotFoundException;
+import com.nnk.springboot.exception.UsernameExistException;
 import com.nnk.springboot.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * UserServiceImpl: CRUD
@@ -70,7 +72,16 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUser(User user) {
+        logger.debug("This updateUser(from UserServiceImpl) starts here.");
+
+        Optional<User> checkUser = userRepository.findByUsername(user.getUsername());
+
+        if(checkUser.isPresent()) {
+            logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
+            throw new UsernameExistException("This username: " + user.getUsername() + " has been already taken");
+        }
         logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", user.getId());
+
         userRepository.save(user);
     }
 
@@ -85,14 +96,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         logger.debug("This findByUsername(from UserServiceImpl starts here.) ");
-        User user = userRepository.findByUsername(username);
-        if(user == null) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty()) {
             logger.error("User with username with: {} doesn't exist in DDB!", username);
             //throw new ResourcesNotFoundException("This Username " + username + " doesn't exist, from findByUsername, UserServiceImpl.");
         }
-        logger.info("User which username: {} successfully loaded from DDB(from UserServiceImpl)", username);
+        logger.info("Username: {} successfully has been checked from DDB(from UserServiceImpl)", username);
         return user;
     }
 

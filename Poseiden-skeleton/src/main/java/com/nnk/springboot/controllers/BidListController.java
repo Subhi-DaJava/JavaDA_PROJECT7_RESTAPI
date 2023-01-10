@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+
 /**
  * BidListController send requests to backend, getAllBidList, saveNewBidList, getBidListById, updateBidListExisting, deleteBidListExisting
+ *
  * @author Subhi
  */
 
@@ -22,13 +24,15 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class BidListController {
     private static final Logger logger = LoggerFactory.getLogger(BidListController.class);
-   private BidListService bidListService;
+    private BidListService bidListService;
 
     public BidListController(BidListService bidListService) {
         this.bidListService = bidListService;
     }
+
     /**
      * Page list show all BidList
+     *
      * @param model Model
      * @return BidList page
      */
@@ -39,8 +43,10 @@ public class BidListController {
         logger.info("BidList home page successfully loaded(from home, BidListController).");
         return "bidList/list";
     }
+
     /**
      * Show BidList addForm with the object BidListDTO
+     *
      * @return BidListAdd Page
      */
     @GetMapping("/bidList/add")
@@ -48,17 +54,19 @@ public class BidListController {
         logger.debug("This addBidForm(from BidListController) starts here.");
         return "bidList/add";
     }
+
     /**
      * Sava a BidList
+     *
      * @param bidList
-     * @param result BindingResult
+     * @param result  BindingResult
      * @return BidList Page
      */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidListDTO bidList, BindingResult result, Model model) {
         logger.debug("This validatePostMapping(from BidListController) starts here.");
 
-        if(!result.hasErrors()){
+        if (!result.hasErrors()) {
             bidListService.saveNewBidList(bidList);
             logger.info("New BidList successfully saved in DDB(from validatePostMapping, BidListController)");
             return "redirect:/api/bidList/list";
@@ -66,9 +74,11 @@ public class BidListController {
         logger.error("result error= {}, (from validePostMapping, BidListController)", result.getFieldErrors());
         return "bidList/add";
     }
+
     /**
      * Show updateForm
-     * @param id Integer
+     *
+     * @param id    Integer
      * @param model Model
      * @return BidListUpdate Page with BidListDTO
      */
@@ -80,18 +90,20 @@ public class BidListController {
         logger.info("UpdateBidList page successfully loaded(from showUpdateForm, BidListController).");
         return "bidList/update";
     }
+
     /**
      * Update a BidList by id, checking the fields before call to service
-     * @param id Integer
+     *
+     * @param id         Integer
      * @param bidListDTO BidListDTO
-     * @param result BindingResult
+     * @param result     BindingResult
      * @return BidList Page
      */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidListDTO bidListDTO,
-                             BindingResult result) {
+                            BindingResult result) {
         logger.debug("This updateBid method(from BidListController) starts here.");
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             logger.error("The field error= {} should be valid!", result.getFieldErrors());
             return "bidList/update";
         }
@@ -103,6 +115,7 @@ public class BidListController {
 
     /**
      * Delete BidList by given BidListId
+     *
      * @param id Integer
      * @return BidList Page
      */

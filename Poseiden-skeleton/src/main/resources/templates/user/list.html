@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
@@ -14,6 +15,10 @@
 		</div>
 		<div class="col-6 text-right">
 			<a href="/">Home</a>&nbsp;|&nbsp;<a href="/login">Login</a> | <a th:href="@{/logout}">Logout</a>
+		</div>
+		<div style="font-size: 1.3rem; color: black; font-weight: bold">
+			Authenticated user roles:
+			<div sec:authentication="principal.authorities"></div>
 		</div>
 	</div>
 	<div class="row"><h2>User List</h2></div>

@@ -3,6 +3,8 @@ package com.nnk.springboot.service.user_service;
 import com.nnk.springboot.domain.User;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  * UserService allows to insert the business logic
  * in the User business domain.
@@ -18,6 +20,6 @@ public interface UserService {
 
     void deleteUserById(Integer id);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
 }

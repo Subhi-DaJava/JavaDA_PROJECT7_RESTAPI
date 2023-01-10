@@ -13,7 +13,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		logger.debug("This app's homePage(HomeController) starts here.");
-		model.addAttribute("greeting", "Welcome to Poseidon InC. App Home Page.");
+		model.addAttribute("greeting", " Welcome to Poseidon InC. App Home Page.");
 		return "home";
 	}
 
