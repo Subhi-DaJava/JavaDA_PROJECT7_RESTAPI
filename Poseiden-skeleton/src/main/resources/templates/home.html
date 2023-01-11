@@ -7,7 +7,7 @@
 </head>
 <body>
 <h3> HOME PAGE </h3>
-<div class="container">
+<div class="container mb-3">
     <div class="col-6" sec:authorize="isAuthenticated()">
         <a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
         <a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
@@ -21,9 +21,10 @@
         <div sec:authentication="principal.authorities"></div>
     </div>-->
 
-    <div style="display: flex;">
-        <div class="col" sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
+    <div style="display: flex; margin-top: 10px">
+        <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
         <div class="fs-3 text-center" th:text="${greeting}"></div>
+        <div sec:authorize="authenticated" style="margin-left: 5px; color: red;"><a th:href="@{/logout}">Logout</a></div>
     </div>
     <p>
         <a href="/login" sec:authorize="!authenticated">Login</a> or create one <a href="/user/list">User management</a>

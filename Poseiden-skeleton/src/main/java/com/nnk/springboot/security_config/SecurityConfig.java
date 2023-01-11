@@ -60,8 +60,9 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/").permitAll().and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .oauth2Login(Customizer.withDefaults())
-                .build();
+                .oauth2Login()
+                .and().build();
+        // Customizer.withDefaults()
 
         //regular expression
             /* return http

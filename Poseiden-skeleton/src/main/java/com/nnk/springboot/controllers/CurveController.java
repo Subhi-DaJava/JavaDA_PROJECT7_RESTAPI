@@ -32,7 +32,7 @@ public class CurveController {
      * @return CurvePointList page
      */
 
-    @RequestMapping("/curvePoint/list")
+    @GetMapping("/curvePoint/list")
     public String home(Model model) {
         logger.debug("This home(from CurveController) starts here.");
         model.addAttribute("curvePointList", curvePointService.getCurvePoints());

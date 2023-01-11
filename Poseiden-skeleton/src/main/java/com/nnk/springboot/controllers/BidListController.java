@@ -36,7 +36,7 @@ public class BidListController {
      * @param model Model
      * @return BidList page
      */
-    @RequestMapping("/bidList/list")
+    @GetMapping("/bidList/list")
     public String home(Model model) {
         logger.debug("This home(from BidListController) starts here.");
         model.addAttribute("bidList", bidListService.getBidList());

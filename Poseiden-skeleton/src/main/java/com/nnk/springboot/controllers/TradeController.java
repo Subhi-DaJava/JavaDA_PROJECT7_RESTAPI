@@ -33,7 +33,7 @@ public class TradeController {
      * @param model Model
      * @return TradeList page
      */
-    @RequestMapping("/trade/list")
+    @GetMapping("/trade/list")
     public String home(Model model) {
         logger.debug("This home(from TradeController) starts here.");
         model.addAttribute("tradeList", tradeService.getTrades());

@@ -20,6 +20,7 @@ public class RatingDTO {
     @NotNull(message = "Order must not be null")
     private Integer orderNumber;
 
+
     public Integer getRatingID() {
         return ratingID;
     }

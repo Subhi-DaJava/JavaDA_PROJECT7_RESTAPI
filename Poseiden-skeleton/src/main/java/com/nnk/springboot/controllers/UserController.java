@@ -33,7 +33,7 @@ public class UserController {
      * @param model Model
      * @return User page
      */
-    @RequestMapping("/user/list")
+    @GetMapping("/user/list")
     public String home(Model model) {
         logger.debug("This home(from UserController) starts here.");
         model.addAttribute("users", userService.getUserList());

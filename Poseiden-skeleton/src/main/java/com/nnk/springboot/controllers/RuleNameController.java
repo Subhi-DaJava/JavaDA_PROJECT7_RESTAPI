@@ -31,7 +31,7 @@ public class RuleNameController {
      * @param model Model
      * @return RuleNameList page
      */
-    @RequestMapping("/ruleName/list")
+    @GetMapping("/ruleName/list")
     public String home(Model model) {
         logger.debug("This home(from RuleNameController) starts here.");
         model.addAttribute("ruleNameList", ruleNameService.getRuleNames());

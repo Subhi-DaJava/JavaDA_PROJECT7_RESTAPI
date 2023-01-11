@@ -34,7 +34,7 @@ public class RatingController {
      * @param model Model
      * @return RatingList page
      */
-    @RequestMapping("/rating/list")
+    @GetMapping("/rating/list")
     public String home(Model model) {
         logger.debug("This home(from RatingController) starts here.");
         model.addAttribute("ratingList", ratingService.getRatings());
