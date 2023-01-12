@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -87,6 +86,7 @@ class UserControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/list"));
 
+
     }
     @Test
     @WithMockUser
@@ -99,8 +99,14 @@ class UserControllerTest {
 
         when(userService.findByUsername(anyString())).thenReturn(Optional.of(newUser));
 
-        mockMvc.perform(post("/user/validate"))
+        mockMvc.perform(post("/user/validate")
+                        .param("fullname", "newFullname")
+                        .param("role", "ADMIN")
+                        .param("password", "12345678")
+                        .param("username", "UsernameExisting")
+                        .with(csrf()))
                 .andExpect(status().isOk())
+                .andExpect(model().attribute("userExist", "Username already taken"))
                 .andExpect(view().name("user/add"));
     }
 
@@ -167,15 +173,31 @@ class UserControllerTest {
     @WithMockUser
     void updateUserByAlreadyExistingUsernameFailed() throws Exception {
         User updateUser = new User();
-        updateUser.setId(5);
+        updateUser.setId(6);
         updateUser.setFullname("UserFullnameUpdate");
         updateUser.setRole("ADMIN");
-        updateUser.setUsername("UsernameExisting");
+        updateUser.setUsername("anyUser");
         updateUser.setPassword("12345678");
-        when(userService.findByUsername(anyString())).thenReturn(Optional.of(updateUser));
 
-        mockMvc.perform(post("/user/update/{id}",5))
+        User userExist = new User();
+        userExist.setId(7);
+        userExist.setFullname("userExist");
+        userExist.setRole("USER");
+        userExist.setUsername("UsernameExisting");
+        userExist.setPassword("12345678");
+
+        when(userService.getUserById(6)).thenReturn(updateUser);
+        when(userService.findByUsername(anyString())).thenReturn(Optional.of(userExist));
+
+
+        mockMvc.perform(post("/user/update/{id}",6)
+                        .param("fullname","updateFullName")
+                        .param("role","USER")
+                        .param("password", "12345")
+                        .param("username", "anyUser")
+                        .with(csrf()))
                 .andExpect(status().isOk())
+                .andExpect(model().attribute("userExist", "Username already taken by other User"))
                 .andExpect(view().name("user/update"));
 
     }

@@ -6,30 +6,34 @@
     <link rel="stylesheet" th:href="@{/css/styles.css/}">
 </head>
 <body>
-<h3> HOME PAGE </h3>
-<div class="container mb-3">
-    <div class="col-6" sec:authorize="isAuthenticated()">
-        <a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
-        <a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-        <a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
-        <a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
-        <a href="/api/ruleName/list">Rule</a>
+<div class="container">
+    <div class="card">
+        <h3> HOME PAGE </h3>
+        <div class="container mb-3">
+            <div class="col-6" sec:authorize="isAuthenticated()">
+                <a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
+                <a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+                <a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
+                <a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
+                <a href="/api/ruleName/list">Rule</a>
+            </div>
+
+            <!--<div style="font-size: 1.3rem; color: black; font-weight: bold" sec:authorize="authenticated">
+                Authenticated user roles:
+                <div sec:authentication="principal.authorities"></div>
+            </div>-->
+
+            <div style="display: flex; margin-top: 10px">
+                <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
+                <div class="fs-3 text-center" th:text="${greeting}"></div>
+                <div sec:authorize="authenticated" style="margin-left: 5px; color: red;"><a th:href="@{/logout}">Logout</a></div>
+            </div>
+            <p>
+                <a href="/login" sec:authorize="!authenticated">Login</a> or create one <a href="/user/list">User management</a>
+            </p>
+        </div>
+
     </div>
-
-    <!--<div style="font-size: 1.3rem; color: black; font-weight: bold" sec:authorize="authenticated">
-        Authenticated user roles:
-        <div sec:authentication="principal.authorities"></div>
-    </div>-->
-
-    <div style="display: flex; margin-top: 10px">
-        <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
-        <div class="fs-3 text-center" th:text="${greeting}"></div>
-        <div sec:authorize="authenticated" style="margin-left: 5px; color: red;"><a th:href="@{/logout}">Logout</a></div>
     </div>
-    <p>
-        <a href="/login" sec:authorize="!authenticated">Login</a> or create one <a href="/user/list">User management</a>
-    </p>
-</div>
-
 </body>
 </html>

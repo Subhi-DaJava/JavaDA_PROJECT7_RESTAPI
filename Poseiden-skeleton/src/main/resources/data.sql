@@ -4,6 +4,10 @@ insert into `bidlist` (account, type, bid_quantity) values
                                                      ('bid_account_1', 'type_1', 150.60),
                                                      ('bid_account_2', 'type_2', 180.98),
                                                      ('bid_account_3', 'type_3', 147.0);
+insert into `bidlist` (account, type, bid_quantity) values
+                                                        ('bid_account_4', 'type_4', 150.60),
+                                                        ('bid_account_5', 'type_5', 180.98),
+                                                        ('bid_account_6', 'type_6', 147.0);
 
 insert into curvepoint (curveid, term, value) values
                                                 (2, 169.55, 230),
@@ -34,4 +38,6 @@ insert into `users` (fullname, username, password, role) values
 insert into `users` (fullname, username, password, role) values('Administrator', 'admin', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'ADMIN');
 insert into `users` (fullname, username, password, role) values('User', 'user', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa','USER');
 insert into `users` (fullname, username, password, role) values('User', 'user1', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','USER');
-insert into `users` (fullname, username, password, role) values('User', 'user2', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ADMIN, USER');
+insert into `users` (fullname, username, password, role) values('NewUserAdmin', 'NewAdmin', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ADMIN, USER');
+insert into `users` (fullname, username, password, role) values('UserAdmin', 'AdminRole', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ROLE_ADMIN');
+insert into `users` (fullname, username, password, role) values('UserName', 'Username', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ROLE_USER');

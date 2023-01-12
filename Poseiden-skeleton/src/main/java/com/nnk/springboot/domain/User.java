@@ -13,7 +13,7 @@ public class User {
     @Column(length = 125, unique = true)
     private String username;
     @NotBlank(message = "Password is mandatory")
-    @Column(name = "password", length = 125) //Todo: exigence, pattern
+    @Column( length = 125) //Todo: exigence, pattern
     private String password;
     @NotBlank(message = "FullName is mandatory")
     @Column(length = 125)

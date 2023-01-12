@@ -12,16 +12,16 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "ModdysRaing must not be null")
-    @Column(name = "moodys_rating", length = 20)
+    @Column(length = 20)
     private String moodysRating;
     @NotBlank(message = "SandPRating must not be null")
-    @Column(name = "sand_p_rating", length = 20)
+    @Column(length = 20, name = "sand_p_rating")
     private String sandPRating;
     @NotBlank(message = "FitchRating must not be null")
-    @Column(name = "fitch_rating", length = 20)
+    @Column(length = 20)
     private String fitchRating;
     @Min(1)
-    @Column(name = "order_number", length = 4)
+    @Column(length = 4)
     @NotNull(message = "OrderNumber must not be null")
     private Integer orderNumber;
 

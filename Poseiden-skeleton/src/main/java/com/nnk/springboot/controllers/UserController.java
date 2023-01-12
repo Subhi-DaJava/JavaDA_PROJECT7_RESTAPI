@@ -61,7 +61,7 @@ public class UserController {
         Optional<User> checkUser = userService.findByUsername(user.getUsername());
         if (!checkUser.isEmpty()) {
             logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
-            String errorMsg = "Username already exists";
+            String errorMsg = "Username already taken";
             model.addAttribute("userExist", errorMsg);
             return "user/add";
         }
@@ -109,14 +109,18 @@ public class UserController {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
 
+        User userById = userService.getUserById(id);
+
         Optional<User> checkUser = userService.findByUsername(user.getUsername());
-        if(checkUser.isPresent()) {
+
+        if(checkUser.isPresent() && !checkUser.get().getUsername().equals(userById.getUsername())) {
             logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
-            String errorMsg = "Username already exists";
+            String errorMsg = "Username already taken by other User";
             model.addAttribute("userExist", errorMsg);
             return "user/update";
         }
         userService.updateUser(user);
+
         logger.info("User with id: {} is successfully updated(from, updatePostMapping, UserController)", id);
         return "redirect:/user/list";
     }

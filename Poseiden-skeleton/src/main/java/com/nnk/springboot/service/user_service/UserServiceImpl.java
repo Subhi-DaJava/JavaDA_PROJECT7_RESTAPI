@@ -74,15 +74,8 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         logger.debug("This updateUser(from UserServiceImpl) starts here.");
 
-        Optional<User> checkUser = userRepository.findByUsername(user.getUsername());
-
-        if(checkUser.isPresent()) {
-            logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
-            throw new UsernameExistException("This username: " + user.getUsername() + " has been already taken");
-        }
-        logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", user.getId());
-
         userRepository.save(user);
+        logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", user.getId());
     }
 
     @Override

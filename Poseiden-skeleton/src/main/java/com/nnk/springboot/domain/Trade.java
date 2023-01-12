@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "trade_id")
     public Integer tradeId;
     @NotBlank(message = "Account is mandatory")
     @Column(length = 20)
@@ -22,18 +21,11 @@ public class Trade {
     public String type;
     @Min(1)
     @NotNull(message = "Should not be null")
-    @Column(name = "buy_quantity")
     private Double buyQuantity;
-    @Column(name = "sel_quantity")
     private Double selQuantity;
-    @Column(name = "buy_price")
     private Double buyPrice;
-    @Column(name = "sel_price")
     private Double selPrice ;
-
-    @Column(name = "trade_date")
     private Timestamp tradeDate;
-
     @Column(length = 125)
     private String security;
     @Column(length = 10)
@@ -45,19 +37,17 @@ public class Trade {
     @Column(length = 125)
     private String book;
 
-    @Column(length = 125, name = "creation_name")
+    @Column(length = 125)
     private String creationName;
-    @Column(name = "creation_date")
     private Timestamp creationDate;
-    @Column(name = "revision_name", length = 125)
+    @Column( length = 125)
     private String revisionName;
-    @Column(name = "revision_date")
     private Timestamp revisionDate;
-    @Column(name = "deal_name", length = 125)
+    @Column(length = 125)
     private String dealName;
-    @Column(name = "deal_type", length = 125)
+    @Column( length = 125)
     private String dealType;
-    @Column(name = "source_list_id", length = 125)
+    @Column(length = 125)
     private String sourceListId;
 
     private String side;
@@ -78,7 +68,7 @@ public class Trade {
     }
 
     public Trade(String tradeAccount, String type) {
-        this.account = account;
+        this.account = tradeAccount;
         this.type = type;
     }
 

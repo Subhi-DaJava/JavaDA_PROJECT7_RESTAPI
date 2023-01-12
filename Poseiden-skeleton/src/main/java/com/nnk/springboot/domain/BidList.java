@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -10,8 +11,7 @@ import java.sql.Timestamp;
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bid_list_Id")
-    private Integer BidListId;
+    private Integer bidListId;
 
     @NotBlank(message = "Account is mandatory")
     private String account;
@@ -19,10 +19,9 @@ public class BidList {
     @NotBlank(message = "Type is mandatory")
     @Column(length = 30)
     private String type;
+    @Min(1)
     @NotNull(message = "Bid Quantity is mandatory")
-    @Column(name = "bid_quantity")
     private Double bidQuantity;
-    @Column(name = "ask_quantity")
     private Double askQuantity;
 
     private Double bid;
@@ -31,7 +30,6 @@ public class BidList {
     @Column(length = 125)
     private String benchmark;
 
-    @Column(name = "bid_listDate")
     private Timestamp bidListDate;
 
     @Column(length = 125)
@@ -75,7 +73,7 @@ public class BidList {
                    String commentary, String security, String status,
                    String trader, String book, String creationName, Timestamp creationDate,
                    String revisionName, Timestamp revisionDate, String dealName, String dealType, String sourceListId, String side) {
-        this.BidListId = bidListId;
+        this.bidListId = bidListId;
         this.account = account;
         this.type = type;
         this.bidQuantity = bidQuantity;
@@ -108,15 +106,15 @@ public class BidList {
         this.account = account;
         this.type = type;
         this.bidQuantity = bidQuantity;
-        this.BidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public Integer getBidListId() {
-        return BidListId;
+        return bidListId;
     }
 
     public void setBidListId(Integer bidListId) {
-        BidListId = bidListId;
+        bidListId = bidListId;
     }
 
     public String getAccount() {
