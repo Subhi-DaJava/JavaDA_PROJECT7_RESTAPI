@@ -48,7 +48,7 @@ class UserControllerTest {
         userList = new ArrayList<>(List.of(newUser));
     }
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void home() throws Exception {
         when(userService.getUserList()).thenReturn(userList);
 
@@ -59,7 +59,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void addUserForm() throws Exception {
         mockMvc.perform(get("/user/add"))
                 .andExpect(status().isOk())
@@ -67,7 +67,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void validate() throws Exception {
         User newUser = new User();
         newUser.setFullname("UserFullname");
@@ -89,7 +89,7 @@ class UserControllerTest {
 
     }
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void validateUserByExistingUsername() throws Exception {
         User newUser = new User();
         newUser.setFullname("NewUserFullname");
@@ -111,7 +111,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void validateFailed() throws Exception {
         mockMvc.perform(post("/user/validate"))
                 .andExpect(status().isOk())
@@ -119,7 +119,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void showUpdateForm() throws Exception {
         User updateUser = new User();
         updateUser.setFullname("UserFullnameUpdate");
@@ -138,15 +138,15 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void updateUserFailed() throws Exception {
         mockMvc.perform(post("/user/update/{id}", 8))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/update"));
     }
     @Test
-    @WithMockUser
-    void updateUser() throws Exception {
+    @WithMockUser("userTest")
+    void updateUserWithUsernameNotExitsShouldReturnUserListPage() throws Exception {
         User updateUser = new User();
         updateUser.setId(5);
         updateUser.setFullname("UserFullnameUpdate");
@@ -166,11 +166,33 @@ class UserControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/list"));
-
-
     }
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
+    void updateUserSuccessByUsernameSameAsBeforeReturnUserUpdatePage() throws Exception {
+        User updateUser = new User();
+        updateUser.setId(5);
+        updateUser.setFullname("UserFullnameUpdate");
+        updateUser.setRole("USER");
+        updateUser.setUsername("UsernameUpdate");
+        updateUser.setPassword("12345678");
+
+        when(userService.getUserById(5)).thenReturn(updateUser);
+
+        doNothing().when(userService).updateUser(updateUser);
+
+        mockMvc.perform(post("/user/update/{id}", 5)
+                        .param("fullname", "UserFullname")
+                        .param("username", "UsernameUpdate")
+                        .param("password", "12345")
+                        .param("role", "ADMIN")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/user/list"));
+    }
+
+    @Test
+    @WithMockUser("userTest")
     void updateUserByAlreadyExistingUsernameFailed() throws Exception {
         User updateUser = new User();
         updateUser.setId(6);
@@ -203,7 +225,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("userTest")
     void deleteUser() throws Exception {
 
         doNothing().when(userService).deleteUserById(anyInt());

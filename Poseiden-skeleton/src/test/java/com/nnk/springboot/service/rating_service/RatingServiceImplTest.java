@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -64,6 +65,16 @@ class RatingServiceImplTest {
     }
 
     @Test
+    void getEmptyRatingList() {
+        List<Rating> ratings = new ArrayList<>();
+
+        when(ratingRepository.findAll()).thenReturn(ratings);
+
+        List<RatingDTO> ratingDTOList = ratingService.getRatings();
+
+        assertThat(ratingDTOList.size()).isEqualTo(0);
+    }
+    @Test
     void getRatingById() {
         RatingDTO ratingDTO= new RatingDTO();
         Rating rating = new Rating(8, "moodsRating", "sandPRating", "fitchRating", 452);
@@ -77,6 +88,13 @@ class RatingServiceImplTest {
         RatingDTO ratingDTOGetById = ratingService.getRatingById(rating.getId());
         assertThat(ratingDTOGetById.getRatingID()).isEqualTo(8);
         assertThat(ratingDTOGetById.getOrderNumber()).isEqualTo(rating.getOrderNumber());
+    }
+
+    @Test
+    void getRatingByNotExistingId() {
+        when(ratingRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> ratingService.getRatingById(anyInt()));
     }
 
     @Test

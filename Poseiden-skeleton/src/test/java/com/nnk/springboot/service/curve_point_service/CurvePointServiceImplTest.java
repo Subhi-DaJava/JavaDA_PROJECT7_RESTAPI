@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -55,6 +56,16 @@ class CurvePointServiceImplTest {
     }
 
     @Test
+    void getEmptyCurvePoints() {
+        List<CurvePoint> curvePoints = new ArrayList<>();
+        when(curvePointRepository.findAll()).thenReturn(curvePoints);
+
+        List<CurvePointDTO> curvePointDTOList = curvePointService.getCurvePoints();
+
+        assertThat(curvePointDTOList.size()).isEqualTo(0);
+    }
+
+    @Test
     void getCurvePointById() {
         CurvePointDTO curvePointDTO= new CurvePointDTO();
         CurvePoint curvePoint = new CurvePoint(6,12, 320D, 1112D);
@@ -69,6 +80,12 @@ class CurvePointServiceImplTest {
         CurvePointDTO curvePointDTOGetById = curvePointService.getCurvePointById(curvePoint.getId());
         assertThat(curvePointDTOGetById.getCurveid()).isEqualTo(6);
         assertThat(curvePointDTOGetById.getValue()).isEqualTo(curvePoint.getValue());
+    }
+    @Test
+    void getCurvePointByNotExistingId() {
+        when(curvePointRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()-> curvePointService.getCurvePointById(anyInt()));
     }
 
     @Test

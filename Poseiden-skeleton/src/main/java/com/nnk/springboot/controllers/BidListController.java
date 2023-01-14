@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/bidList")
 public class BidListController {
     private static final Logger logger = LoggerFactory.getLogger(BidListController.class);
     private BidListService bidListService;
@@ -36,7 +36,7 @@ public class BidListController {
      * @param model Model
      * @return BidList page
      */
-    @GetMapping("/bidList/list")
+    @GetMapping("/list")
     public String home(Model model) {
         logger.debug("This home(from BidListController) starts here.");
         model.addAttribute("bidList", bidListService.getBidList());
@@ -49,7 +49,7 @@ public class BidListController {
      *
      * @return BidListAdd Page
      */
-    @GetMapping("/bidList/add")
+    @GetMapping("/add")
     public String addBidForm(BidListDTO bidListDTO) { // object BidListDTO interact with add.html
         logger.debug("This addBidForm(from BidListController) starts here.");
         return "bidList/add";
@@ -62,7 +62,7 @@ public class BidListController {
      * @param result  BindingResult
      * @return BidList Page
      */
-    @PostMapping("/bidList/validate")
+    @PostMapping("/validate")
     public String validate(@Valid BidListDTO bidList, BindingResult result, Model model) {
         logger.debug("This validatePostMapping(from BidListController) starts here.");
 
@@ -82,7 +82,7 @@ public class BidListController {
      * @param model Model
      * @return BidListUpdate Page with BidListDTO
      */
-    @GetMapping("/bidList/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.debug("This showUpdateForm(from BidListController) starts here.");
         BidListDTO bidListDTO = bidListService.getBidListById(id);
@@ -99,7 +99,7 @@ public class BidListController {
      * @param result     BindingResult
      * @return BidList Page
      */
-    @PostMapping("/bidList/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidListDTO bidListDTO,
                             BindingResult result) {
         logger.debug("This updateBid method(from BidListController) starts here.");
@@ -119,7 +119,7 @@ public class BidListController {
      * @param id Integer
      * @return BidList Page
      */
-    @GetMapping("/bidList/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         logger.debug("This deleteBid(from BidListController) starts here.");
         bidListService.deleteBidListById(id);

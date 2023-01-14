@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Subhi
@@ -20,7 +19,7 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping("secure/article-details")
+    @GetMapping("/secure/article-details")
     public String getAllUserArticles(Model model) {
         logger.debug("This getAllUserArticles(from LoginController) starts here.");
         model.addAttribute("users", userService.getUserList());

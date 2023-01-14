@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @WebMvcTest(controllers = BidListController.class)
 class BidListControllerTest {
-    @Autowired
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -120,6 +120,7 @@ class BidListControllerTest {
                 .andExpect(view().name( "redirect:/api/bidList/list"));
     }
     @Test
+    @WithMockUser("UserTest")
     void updateBidFailed() throws Exception {
         mockMvc.perform(post("/api/bidList/update/{id}", 7))
                 .andExpect(status().isOk())

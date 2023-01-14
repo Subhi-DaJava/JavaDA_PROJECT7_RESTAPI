@@ -113,9 +113,9 @@ class TradeControllerTest {
     @Test
     @WithMockUser
     void updateTradeFailed() throws Exception {
-        mockMvc.perform(post("/api/trade/validate"))
+        mockMvc.perform(post("/api/trade/update/{id}", 5))
                 .andExpect(status().isOk())
-                .andExpect(view().name("trade/add"));
+                .andExpect(view().name("trade/update"));
     }
     @Test
     @WithMockUser

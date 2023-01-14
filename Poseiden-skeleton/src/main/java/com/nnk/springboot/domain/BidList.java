@@ -42,59 +42,20 @@ public class BidList {
     private String trader;
     @Column(length = 125)
     private String book;
-
-
-    @Column(length = 125, name = "creation_name")
     private String creationName;
-    @Column(name = "creation_date")
     private Timestamp creationDate;
-    @Column(length = 125, name = "revision_name")
     private String revisionName;
-    @Column(name = "revision_date")
     private Timestamp revisionDate;
-    @Column(length = 125, name = "deal_name")
     private String dealName;
-    @Column(length = 125, name = "deal_type")
+    @Column(length = 125)
     private String dealType;
-    @Column(length = 125,name = "source_listId")
+    @Column(length = 125)
     private String sourceListId;
 
     @Column(length = 125)
     private String side;
 
     public BidList() {
-    }
-
-    public BidList(Integer bidListId,
-                   String account,
-                   String type, Double bidQuantity,
-                   Double askQuantity, Double bid, Double ask,
-                   String benchmark, Timestamp bidListDate,
-                   String commentary, String security, String status,
-                   String trader, String book, String creationName, Timestamp creationDate,
-                   String revisionName, Timestamp revisionDate, String dealName, String dealType, String sourceListId, String side) {
-        this.bidListId = bidListId;
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-        this.askQuantity = askQuantity;
-        this.bid = bid;
-        this.ask = ask;
-        this.benchmark = benchmark;
-        this.bidListDate = bidListDate;
-        this.commentary = commentary;
-        this.security = security;
-        this.status = status;
-        this.trader = trader;
-        this.book = book;
-        this.creationName = creationName;
-        this.creationDate = creationDate;
-        this.revisionName = revisionName;
-        this.revisionDate = revisionDate;
-        this.dealName = dealName;
-        this.dealType = dealType;
-        this.sourceListId = sourceListId;
-        this.side = side;
     }
 
     public BidList(String account, String type, Double bidQuantity) {
@@ -114,7 +75,7 @@ public class BidList {
     }
 
     public void setBidListId(Integer bidListId) {
-        bidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public String getAccount() {

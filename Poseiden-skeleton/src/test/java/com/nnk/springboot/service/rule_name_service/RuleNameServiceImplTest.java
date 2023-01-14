@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -58,6 +59,16 @@ class RuleNameServiceImplTest {
         assertThat(ruleNameDTOList.get(0).getJson()).isEqualTo("json1");
         assertThat(ruleNameDTOList).isNotNull();
     }
+    @Test
+    void getEmptyListOfRuleName() {
+        List<RuleName> ruleNames = new ArrayList<>();
+
+        when(ruleNameRepository.findAll()).thenReturn(ruleNames);
+
+        List<RuleNameDTO> ruleNameDTOList = ruleNameService.getRuleNames();
+
+        assertThat(ruleNameDTOList.size()).isEqualTo(0);
+    }
 
     @Test
     void getRuleNameById() {
@@ -76,6 +87,13 @@ class RuleNameServiceImplTest {
 
         assertThat(ruleNameDTOGetById.getRuleNameId()).isEqualTo(ruleName.getId());
         assertThat(ruleNameDTOGetById.getJson()).isEqualTo(ruleName.getJson());
+    }
+
+    @Test
+    void getRuleNameByNotExistingId() {
+        when(ruleNameRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> ruleNameService.getRuleNameById(anyInt()));
     }
 
     @Test

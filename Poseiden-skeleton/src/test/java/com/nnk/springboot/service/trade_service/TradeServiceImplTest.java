@@ -1,8 +1,6 @@
 package com.nnk.springboot.service.trade_service;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.dto.RuleNameDTO;
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.mapper.MapperService;
 import com.nnk.springboot.repositories.TradeRepository;
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -60,6 +58,16 @@ class TradeServiceImplTest {
     }
 
     @Test
+    void getEmptyTradeList() {
+        List<Trade> trades = new ArrayList<>();
+        when(tradeRepository.findAll()).thenReturn(trades);
+
+        List<TradeDTO> tradeDTOList = tradeService.getTrades();
+
+        assertThat(tradeDTOList.size()).isEqualTo(0);
+    }
+
+    @Test
     void getTradeById() {
         TradeDTO tradeDTO = new TradeDTO();
         Trade trade = new Trade(21,"account", "type", 856D);
@@ -75,6 +83,13 @@ class TradeServiceImplTest {
 
         assertThat(tradeDTOGetByTradeId.getId()).isEqualTo(trade.getTradeId());
         assertThat(tradeDTOGetByTradeId.getType()).isEqualTo(trade.getType());
+    }
+
+    @Test
+    void getTradeByNotExistingId() {
+        when(tradeRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> tradeService.getTradeById(anyInt()));
     }
 
     @Test
@@ -112,6 +127,7 @@ class TradeServiceImplTest {
         when(tradeRepository.save(any())).thenReturn(trade);
 
         when(mapperService.fromTradeDTO(any())).thenReturn(trade);
+
         trade.setType("type_updated");
         trade.setAccount("account_updated");
         trade.setTradeId(23);

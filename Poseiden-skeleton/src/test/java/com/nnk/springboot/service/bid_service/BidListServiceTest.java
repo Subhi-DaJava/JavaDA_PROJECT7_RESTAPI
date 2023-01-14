@@ -2,6 +2,7 @@ package com.nnk.springboot.service.bid_service;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.dto.BidListDTO;
+import com.nnk.springboot.exception.ResourcesNotFoundException;
 import com.nnk.springboot.mapper.MapperService;
 import com.nnk.springboot.repositories.BidListRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -28,9 +30,9 @@ class BidListServiceTest {
     private MapperService mapperService;
 
     private List<BidListDTO> bidListDTOs;
-    private
+
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         bidListDTOs = new ArrayList<>();
     }
 
@@ -58,6 +60,16 @@ class BidListServiceTest {
         assertThat(bidListDTOList.size()).isEqualTo(2);
         assertThat(bidListDTOList.get(0).getType()).isEqualTo("Type1");
         assertThat(bidListDTOList).isNotNull();
+    }
+    @Test
+    void getEmptyBidList() {
+        List<BidList> bidLists = new ArrayList<>();
+        when(bidListRepository.findAll()).thenReturn(bidLists);
+
+        bidListDTOs = bidListService.getBidList();
+
+        assertThat(bidListDTOs.size()).isEqualTo(0);
+
     }
 
     @Test
@@ -98,6 +110,19 @@ class BidListServiceTest {
         assertThat(bidListDTOById.getBidId()).isEqualTo(5);
         assertThat(bidListDTOById.getType()).isEqualTo(bidList.getType());
 
+    }
+    @Test
+    void getBidListByNotExistingId() {
+        when(bidListRepository.findById(anyInt())).thenThrow(new ResourcesNotFoundException("This BidList Id doesn't exist"));
+
+        assertThatThrownBy(()-> bidListService.getBidListById(anyInt()));
+    }
+
+    @Test
+    void getBidListByNotExistingIdReturnEmpty() {
+        when(bidListRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()-> bidListService.getBidListById(anyInt()));
     }
 
     @Test

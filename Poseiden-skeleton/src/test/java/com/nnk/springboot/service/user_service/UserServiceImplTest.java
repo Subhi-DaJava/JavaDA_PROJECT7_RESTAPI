@@ -16,6 +16,7 @@ import java.util.Optional;
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -72,6 +73,13 @@ class UserServiceImplTest {
     }
 
     @Test
+    void getUserByNotExistingId() {
+        when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()-> userService.getUserById(anyInt()));
+    }
+
+    @Test
     void updateUser() {
         when(userRepository.save(any())).thenReturn(user2);
 
@@ -107,5 +115,13 @@ class UserServiceImplTest {
         Optional<User> userByUsername = userService.findByUsername("user");
 
         assertThat(userByUsername.get().getUsername()).isEqualTo("user");
+    }
+
+    @Test
+    void findByNotExistingUsernameShouldReturnEmpty() {
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
+
+
+        assertThat(userService.findByUsername(anyString())).isEmpty();
     }
 }

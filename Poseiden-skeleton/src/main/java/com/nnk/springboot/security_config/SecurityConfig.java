@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
@@ -44,12 +41,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .antMatchers("/").permitAll()
-                        //.antMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
-                        .antMatchers("/api/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers("/css/**", "/error/**").permitAll()
                         .antMatchers("/h2-console/**").permitAll()
-                        //.antMatchers("/user/list").hasAuthority("ADMIN")
-                        .antMatchers("/user/list").hasRole("ADMIN")
+                        .antMatchers("/user/list", "/secure/article-details").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(customUserDetailsService)
