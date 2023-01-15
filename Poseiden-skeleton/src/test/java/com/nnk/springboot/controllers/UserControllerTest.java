@@ -80,7 +80,7 @@ class UserControllerTest {
         mockMvc.perform(post("/user/validate")
                 .param("fullname", "UserFullname")
                 .param("username", "Username")
-                .param("password", "12345")
+                .param("password", "Subhy7!")
                 .param("role", "USER")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -102,7 +102,7 @@ class UserControllerTest {
         mockMvc.perform(post("/user/validate")
                         .param("fullname", "newFullname")
                         .param("role", "ADMIN")
-                        .param("password", "12345678")
+                        .param("password", "Subhy7!")
                         .param("username", "UsernameExisting")
                         .with(csrf()))
                 .andExpect(status().isOk())
@@ -113,8 +113,12 @@ class UserControllerTest {
     @Test
     @WithMockUser("userTest")
     void validateFailed() throws Exception {
-        mockMvc.perform(post("/user/validate"))
+        mockMvc.perform(post("/user/validate")
+                        .param("username", "newUsername")
+                        .param("password", "12345")
+                        .with(csrf()))
                 .andExpect(status().isOk())
+                .andExpect(model().attributeHasFieldErrors("user","password"))
                 .andExpect(view().name("user/add"));
     }
 
@@ -140,7 +144,10 @@ class UserControllerTest {
     @Test
     @WithMockUser("userTest")
     void updateUserFailed() throws Exception {
-        mockMvc.perform(post("/user/update/{id}", 8))
+        mockMvc.perform(post("/user/update/{id}", 8)
+                        .param("username", "")
+                        .param("password", "123")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/update"));
     }
@@ -161,7 +168,7 @@ class UserControllerTest {
         mockMvc.perform(post("/user/update/{id}", 5)
                 .param("fullname", "UserFullname")
                 .param("username", "Username")
-                .param("password", "12345")
+                .param("password", "Subhy7!")
                 .param("role", "USER")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -184,7 +191,7 @@ class UserControllerTest {
         mockMvc.perform(post("/user/update/{id}", 5)
                         .param("fullname", "UserFullname")
                         .param("username", "UsernameUpdate")
-                        .param("password", "12345")
+                        .param("password", "Subhy7!")
                         .param("role", "ADMIN")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -199,7 +206,7 @@ class UserControllerTest {
         updateUser.setFullname("UserFullnameUpdate");
         updateUser.setRole("ADMIN");
         updateUser.setUsername("anyUser");
-        updateUser.setPassword("12345678");
+        updateUser.setPassword("Subhy7!");
 
         User userExist = new User();
         userExist.setId(7);
@@ -215,7 +222,7 @@ class UserControllerTest {
         mockMvc.perform(post("/user/update/{id}",6)
                         .param("fullname","updateFullName")
                         .param("role","USER")
-                        .param("password", "12345")
+                        .param("password", "Subhy7!")
                         .param("username", "anyUser")
                         .with(csrf()))
                 .andExpect(status().isOk())

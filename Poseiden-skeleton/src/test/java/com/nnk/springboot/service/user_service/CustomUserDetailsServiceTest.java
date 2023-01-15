@@ -38,6 +38,9 @@ class CustomUserDetailsServiceTest {
         UserDetails userDetails = customUserDetailsService.loadUserByUsername("userTest");
 
         assertThat(user.getUsername()).isEqualTo(userDetails.getUsername());
+        assertThat(user.getPassword()).isEqualTo(userDetails.getPassword());
+        assertThat(userDetails.getAuthorities().size()).isEqualTo(1);
+
     }
 
     @Test

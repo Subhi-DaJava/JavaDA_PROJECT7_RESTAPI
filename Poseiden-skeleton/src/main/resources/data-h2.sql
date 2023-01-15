@@ -34,10 +34,10 @@ insert into `users` (fullname, username, password, role) values
                                                           ('user_fullName_2', 'username2', '12345', 'ADMIN'),
                                                           ('user_fullName_3', 'username3', '12345', 'USER'),
                                                           ('user_fullName_4', 'username4', '12345', 'ADMIN');
-
-insert into `users` (fullname, username, password, role) values('Administrator', 'admin', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa', 'ADMIN');
-insert into `users` (fullname, username, password, role) values('User', 'user', '$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa','USER');
-insert into `users` (fullname, username, password, role) values('User', 'user1', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','USER');
-insert into `users` (fullname, username, password, role) values('NewUserAdmin', 'NewAdmin', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ADMIN, USER');
-insert into `users` (fullname, username, password, role) values('UserAdmin', 'AdminRole', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ROLE_ADMIN');
-insert into `users` (fullname, username, password, role) values('UserName', 'Username', '$2a$12$WYgzV4KX.9.fcoTeL8WyduTQYiBEayW53D6fpoHz58PIA0R6lkw2G','ROLE_USER');
+--Subhy7!
+insert into `users` (fullname, username, password, role) values('Administrator', 'admin', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS', 'ADMIN');
+insert into `users` (fullname, username, password, role) values('User', 'user', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS','USER');
+insert into `users` (fullname, username, password, role) values('User', 'user1', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS','USER');
+insert into `users` (fullname, username, password, role) values('NewUserAdmin', 'NewAdmin', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS','ADMIN, USER');
+insert into `users` (fullname, username, password, role) values('UserAdmin', 'AdminRole', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS','ROLE_ADMIN');
+insert into `users` (fullname, username, password, role) values('UserName', 'Username', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS','ROLE_USER');

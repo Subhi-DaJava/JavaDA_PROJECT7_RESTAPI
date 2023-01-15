@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title> Spring Boot </title>
@@ -17,11 +17,6 @@
                 <a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
                 <a href="/api/ruleName/list">Rule</a>
             </div>
-
-            <!--<div style="font-size: 1.3rem; color: black; font-weight: bold" sec:authorize="authenticated">
-                Authenticated user roles:
-                <div sec:authentication="principal.authorities"></div>
-            </div>-->
 
             <div style="display: flex; margin-top: 10px">
                 <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
