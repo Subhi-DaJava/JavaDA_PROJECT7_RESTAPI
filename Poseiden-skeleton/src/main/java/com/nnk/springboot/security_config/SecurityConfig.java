@@ -24,14 +24,6 @@ public class SecurityConfig {
         this.customUserDetailsService = customUserDetailsService;
     }
 
-
-    /*@Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails user = User.withUsername("user_test").password(passwordEncoder().encode("12345")).roles("USER").build();
-        UserDetails admin = User.withUsername("admin_test").password(passwordEncoder().encode("12345")).roles("ADMIN", "USER").build();
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
-
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         LOGGER.debug("This defaultSecurityFilterChain(from SecurityConfig) starts here.");
@@ -41,7 +33,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .antMatchers("/").permitAll()
-                        .antMatchers("/css/**", "/error/**").permitAll()
+                        .antMatchers("/css/**", "/error/**", "/img/**").permitAll()
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers("/user/list", "/secure/article-details").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
@@ -49,6 +41,7 @@ public class SecurityConfig {
                 .userDetailsService(customUserDetailsService)
                 .headers(headers -> headers.frameOptions().sameOrigin())
                 .formLogin()
+                .loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll()
                 //.defaultSuccessUrl("/api/bidList/list").permitAll()
                 .and()
                 .logout()
@@ -56,28 +49,8 @@ public class SecurityConfig {
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .oauth2Login()
+                .loginPage("/login")
                 .and().build();
-        // Customizer.withDefaults()
-
-        //regular expression
-            /* return http
-            .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-              /*  .antMatchers("** /user").hasRole("ADMIN")*/
-               /* .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .defaultSuccessUrl("/api/bidList/list").permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/").permitAll()
-                .and().build(); */
 
     }
 

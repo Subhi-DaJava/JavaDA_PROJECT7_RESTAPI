@@ -102,6 +102,7 @@
 						<exclude>**/dto/**</exclude>
 						<exclude>**/domain/**</exclude>
 						<exclude>**/exception/**</exclude>
+						<exclude>**/mapper/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

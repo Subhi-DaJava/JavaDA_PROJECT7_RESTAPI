@@ -21,6 +21,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -44,6 +46,34 @@ public class LoginControllerIT {
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
+
+
+    @Test
+    void loginTest() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andExpect(content().string(containsString("Login with Github")));
+
+    }
+
+    @Test
+    @WithUserDetails("userAdmin")
+    @Sql(statements = "INSERT INTO users (id,username, password, fullname, role) values (3, 'userAdmin', '$2a$12$97hRulpibn96YXW04fWf8e3ywDI9G4bkPXgB3KQUYVLi2g/eGayZS', 'userFullName', 'ADMIN')", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(statements = "DELETE FROM users WHERE id = 3", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void loginValideTest() throws Exception {
+        mockMvc.perform(get("/login")
+                        .param("username", "userAdmin")
+                        .param("password", "Subhy7!")
+                        .with(csrf()))
+
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+    }
+
+
+
     @Test
     //@WithMockUser(value = "admin", authorities = {"ADMIN"})
     @WithUserDetails("userAdmin")

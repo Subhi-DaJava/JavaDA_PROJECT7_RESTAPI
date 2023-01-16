@@ -3,6 +3,9 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.service.user_service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,20 @@ public class LoginController {
 
     public LoginController(UserService userService) {
         this.userService = userService;
+    }
+
+
+    /**
+     * Get login page
+     * @return login or home page
+     */
+    @GetMapping("/login")
+    public String login() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken){
+            return "login";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/secure/article-details")
@@ -35,4 +52,6 @@ public class LoginController {
 
         return "403";
     }
+
+
 }

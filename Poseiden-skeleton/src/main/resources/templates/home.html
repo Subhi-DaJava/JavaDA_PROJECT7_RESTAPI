@@ -3,32 +3,39 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title> Spring Boot </title>
-    <link rel="stylesheet" th:href="@{/css/styles.css/}">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <div class="card">
-        <h3> HOME PAGE </h3>
-        <div class="container mb-3">
-            <div class="col-6" sec:authorize="isAuthenticated()">
-                <a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
-                <a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-                <a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
-                <a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
-                <a href="/api/ruleName/list">Rule</a>
-            </div>
+<div class="container mx-auto mt-5">
+    <div class="card mx-auto mb-5">
+        <div class="card-body mx-auto w-100 mb-5">
+            <h3> HOME PAGE </h3>
+            <div class="mb-3">
+                <div class="col-6" sec:authorize="isAuthenticated()">
+                    <a href="/api/bidList/list">Bid List</a>&nbsp;|&nbsp;
+                    <a href="/api/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+                    <a href="/api/rating/list">Ratings</a>&nbsp;|&nbsp;
+                    <a href="/api/trade/list">Trade</a>&nbsp;|&nbsp;
+                    <a href="/api/ruleName/list">Rule</a>
+                </div>
 
-            <div style="display: flex; margin-top: 10px">
-                <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>, </div>
-                <div class="fs-3 text-center" th:text="${greeting}"></div>
-                <div sec:authorize="authenticated" style="margin-left: 5px; color: red;"><a th:href="@{/logout}">Logout</a></div>
+                <div style="display: flex; margin-top: 10px">
+                    <div sec:authorize="authenticated" style="margin-right: 5px"><span sec:authentication="name"></span>,
+                    </div>
+                    <div class="fs-3 text-center" th:text="${greeting}"></div>
+                    <div sec:authorize="authenticated" style="margin-left: 5px; color: red;"><a
+                            th:href="@{/logout}">Logout</a></div>
+                </div>
+                <p>
+                    <a href="/login" sec:authorize="!authenticated">Login</a> or create one <a href="/user/list">User
+                    management</a>
+                </p>
             </div>
-            <p>
-                <a href="/login" sec:authorize="!authenticated">Login</a> or create one <a href="/user/list">User management</a>
-            </p>
         </div>
-
     </div>
+    <div class="footer text-center mt-5">
+        <img src="/img/logoPoseidon.png" class="img-fluid h-25" alt="logoPoseidon">
     </div>
+</div>
 </body>
 </html>
