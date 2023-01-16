@@ -1,5 +1,6 @@
+use poseidon_p7;
 CREATE TABLE Bidlist (
-                         BidListId INTEGER NOT NULL AUTO_INCREMENT,
+                         bidListId INTEGER NOT NULL AUTO_INCREMENT,
                          account VARCHAR(30) NOT NULL,
                          type VARCHAR(30) NOT NULL,
                          bidQuantity DOUBLE,
