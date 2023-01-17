@@ -5,15 +5,17 @@
 
 ## Technologies:
 
-1. Framework: Spring Boot v2.6.9 
+1. Framework: Spring Boot 2.6.9 
 2. Maven 3.8.4
 3. Java 17
-4. Spring-Boot: 2.6.9
-5. Thymeleaf
-6. Bootstrap v.4.3.1
-7. H2(Pour les tests)
-8. MySQL 8.0.29
-9. OAuth2 (Github)
+4. Spring Data JPA 2.6.5
+5. Spring-Boot: 2.6.9
+6. Thymeleaf 3.0.15.RELEASE
+7. Bootstrap v.4.3.1
+8. H2(Pour les tests)
+9. MySQL 8.0.29
+10. OAuth2 (Github)
+11. Passay 1.6.2
 ## Démarrage d'Application
 * Étape 1 : Cloner le code sur la branche develop_MySQL
 * Étape 2 : Configurer application.properties (url, username et password -→ la connexion avec la BDD ou avec les variables d'environnement)
