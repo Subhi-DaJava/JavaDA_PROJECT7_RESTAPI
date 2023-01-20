@@ -106,7 +106,7 @@ class UserControllerTest {
                         .param("username", "UsernameExisting")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("userExist", "Username already taken"))
+                .andExpect(model().attribute("userExist", "Username already taken by other user!"))
                 .andExpect(view().name("user/add"));
     }
 
@@ -226,7 +226,7 @@ class UserControllerTest {
                         .param("username", "anyUser")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("userExist", "Username already taken by other User"))
+                .andExpect(model().attribute("userExist", "Username already taken by other User!"))
                 .andExpect(view().name("user/update"));
 
     }
