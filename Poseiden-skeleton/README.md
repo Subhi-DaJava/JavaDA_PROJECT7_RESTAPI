@@ -31,9 +31,9 @@ puis exécuter les requêtes dans data.sql ou schema.sql dans le répertoire doc
 Linge de commande ou avec un terminal exécuter : `mvn package` dans le répertoir racine du projet, puis exécuter `java -jar target/spring-boot-skeleton-0.0.1-SNAPSHOT.jar`
 ## Test Units et Test Integrations avec les rapports des tests Jacoco
 ### Test Units
-![reportJacocoUTs6012023](https://user-images.githubusercontent.com/90509456/212762249-c253832f-86c6-4ddc-849f-17b967c01c1a.jpg)
-### Test Integration
 ![reportJacocoITs16012023](https://user-images.githubusercontent.com/90509456/212762307-a04b06d4-82cc-4395-96c7-4a8eb4512bdf.jpg)
+### Test Integration
+![reportJacocoUTs6012023](https://user-images.githubusercontent.com/90509456/212762249-c253832f-86c6-4ddc-849f-17b967c01c1a.jpg)
 ## Interfaces Web
 ### Page Home sans authentificaton
 ![homePageSansAuth](https://user-images.githubusercontent.com/90509456/212764162-4c55ce2a-6e52-45e0-a5c7-0da9f84d3a1e.jpg)
