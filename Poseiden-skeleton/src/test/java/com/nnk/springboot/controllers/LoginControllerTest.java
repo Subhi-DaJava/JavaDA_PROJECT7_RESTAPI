@@ -13,9 +13,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,11 @@ class LoginControllerTest {
 
     }
 
+
+    @Test
+    public void userLoginFailed() throws Exception {
+        mockMvc.perform(formLogin("/login").user("springUser").password("passwordUser")).andExpect(unauthenticated());
+    }
 
     @Test
     void getAllUserArticles() throws Exception {

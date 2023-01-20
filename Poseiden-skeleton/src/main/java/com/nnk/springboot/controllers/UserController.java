@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -61,7 +60,7 @@ public class UserController {
         Optional<User> checkUser = userService.findByUsername(user.getUsername());
         if (!checkUser.isEmpty()) {
             logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
-            String errorMsg = "Username already taken";
+            String errorMsg = "Username already taken by other user!";
             model.addAttribute("userExist", errorMsg);
             return "user/add";
         }
@@ -115,7 +114,7 @@ public class UserController {
 
         if(checkUser.isPresent() && !checkUser.get().getUsername().equals(userById.getUsername())) {
             logger.error("User with username with: {} already exist in DDB! from saveNewUser, UserServiceImpl", user.getUsername());
-            String errorMsg = "Username already taken by other User";
+            String errorMsg = "Username already taken by other User!";
             model.addAttribute("userExist", errorMsg);
             return "user/update";
         }
