@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * SecurityUser class implements UserDetails, transform user's some properties to UserDetails attributes
+ */
 
 public class SecurityUser implements UserDetails {
     private static final Logger LOGGER = LogManager.getLogger(SecurityUser.class);

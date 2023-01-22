@@ -2,10 +2,10 @@ package com.nnk.springboot.service.user_service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.ResourcesNotFoundException;
-import com.nnk.springboot.exception.UsernameExistException;
 import com.nnk.springboot.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveNewUser(User user) {
         logger.debug("This saveNewUser(from UserServiceImpl) starts here.");
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         logger.info("New User successfully saved into DDB with id: {} (from saveNewUser, UserServiceImpl).", savedUser.getId());
         return savedUser;
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         logger.debug("This updateUser(from UserServiceImpl) starts here.");
-
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         logger.info("User which id: {} successfully updated(from updateUser, UserServiceImpl).", user.getId());
     }
@@ -106,5 +107,9 @@ public class UserServiceImpl implements UserService {
             throw new ResourcesNotFoundException("This User doesn't exist with this id : " + id + " , from getUserByUserId, UserServiceImpl.");
         });
         return user;
+    }
+
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

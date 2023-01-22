@@ -4,7 +4,6 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.user_service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,8 +64,6 @@ public class UserController {
             return "user/add";
         }
         if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
             userService.saveNewUser(user);
             logger.info("New User successfully saved in DDB(from validatePostMapping, UserController)");
             return "redirect:/user/list";
@@ -103,9 +100,6 @@ public class UserController {
         if (result.hasErrors()) {
             return "user/update";
         }
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
 
         User userById = userService.getUserById(id);
